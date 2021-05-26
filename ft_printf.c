@@ -27,7 +27,7 @@ int ft_pusk(char *str, va_list args)
 		    i++;
 			i = flag_parser(str, args, &flag, i);
 			if (ft_type_list(str[i]))
-				char_count = ft_vetka((char)flag.type, flag, args);
+				char_count += ft_vetka((char)flag.type, flag, args);
 			else if(str[i])
 				char_count += ft_putchar(str[i]);
 		}
@@ -43,7 +43,7 @@ int flag_parser(char *str, va_list args, t_list *flag, int i)
 	{
 		if (!ft_isdigit(str[i]) && !ft_type_list(str[i]) && !ft_flag_list(str[i]))
 			break;
-		if (str[i] == '0' && flag->minus == 0)
+		if (str[i] == '0' && flag->minus == 0 && flag->wight == 0)
 			flag->null = 1;
 		if (str[i] == '.')
 			i = ft_flag_dot(str, flag, args, i);
@@ -200,14 +200,14 @@ int ft_print_int(int i, t_list flag)
 	}
 	else if (i < 0 && (flag.dot >= 0 || flag.null == 1))
 	{
-		// if (flag.null == 1 && flag.dot == -1)
-		// 	ft_putchar('-');
+	    if (flag.null == 1 && flag.dot == -1)
+	        ft_putchar('-');
 		i = -i;
 		j++;
 		flag.wight--;
 	}
 	str = ft_itoa(i);
-	j += put_int(str, i, flag);
+	j += put_int(str, save, flag);
 	free (str);
 	return (j);
 }
@@ -229,7 +229,7 @@ int put_int(char *str, int save, t_list flag)
 		j += print_null(flag.wight, 0, 0);
 	}
 	else
-		j += print_null(flag.dot, ft_strlen(str), flag.null);
+		j += print_null(flag.wight, ft_strlen(str), flag.null);
 	if (flag.minus == 0)
 		j += put_int2(str, save, flag);
 	return (j);
@@ -357,13 +357,13 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-//int main()
-//{
-//	int a;
-//	int b;
-//
-//	a = ft_printf("Print: %-10.10d\n", -204);
-//	printf("%d\n", a);
-//	b = printf("Print: %-10.10d\n", -204);
-//	printf("%d\n", b);
-//}
+int main()
+{
+	int a;
+	int b;
+
+	a = ft_printf("Print: %10d\n", -204);
+	printf("%d\n", a);
+	b = printf("Print: %10d\n", -204);
+	printf("%d\n", b);
+}
