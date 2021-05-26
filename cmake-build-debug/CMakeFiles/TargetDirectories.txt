@@ -1,0 +1,3 @@
+/Users/cdelaine/printf2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/cdelaine/printf2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/cdelaine/printf2/cmake-build-debug/CMakeFiles/printf2.dir
