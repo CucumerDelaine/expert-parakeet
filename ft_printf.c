@@ -22,8 +22,9 @@ int ft_pusk(char *str, va_list args)
 	while(str[i])
 	{
 		flag_init(&flag);
-		if	(str[i] == '%' && str[i + 1] != '0')
+		if	(str[i] == '%' && str[i + 1] != '\0')
 		{
+		    i++;
 			i = flag_parser(str, args, &flag, i);
 			if (ft_type_list(str[i]))
 				char_count = ft_vetka((char)flag.type, flag, args);
@@ -38,9 +39,6 @@ int ft_pusk(char *str, va_list args)
 }
 int flag_parser(char *str, va_list args, t_list *flag, int i)
 {
-	int start;
-
-	start = i;
 	while(str[i])
 	{
 		if (!ft_isdigit(str[i]) && !ft_type_list(str[i]) && !ft_flag_list(str[i]))
