@@ -98,6 +98,8 @@ int ft_flag_dot(char *str, t_list *flag, va_list args, int start)
 
 	i = start;
 	i++;
+    if(str[start + 1] == '-')
+        flag->wight = 0;
 	if(str[i] == '*')
 	{
 		flag->dot = va_arg(args, int);
@@ -147,24 +149,22 @@ int ft_vetka(char c, t_list flag, va_list args)
 	int i;
 
 	i = 0;
-	// if (c == 'c')
-	// 	i = 
-	// else if (c == 's')
-	// 	i =
-	// else if (c == 'p')
-	// 	i =
-	if (c == 'd')
+	if (c == 'c')
+		i = print_char(va_arg(args, int), flag);
+	else if (c == 's')
+		i = ft_print_string(va_arg(args, char *), flag);
+	else if (c == 'p')
+		i = ft_print_pointer(args, flag);
+	else if (c == 'd' || c == 'i')
 		i = ft_print_int(va_arg(args, int), flag);
-	// else if (c == 'i')
-	// 	i = 
-	// else if (c == 'u')
-	// 	i = 
-	// else if (c == 'x')
-	// 	i = 
-	// else if (c == 'X')
-	// 	i = 
-	// else if (c == '%')
-	// 	i = 
+	else if (c == 'u')
+		i = ft_print_ull(args, flag);
+	else if (c == 'x')
+		i = ft_print_hex(args, flag, 1);
+	else if (c == 'X')
+		i = ft_print_hex(args, flag, 0);
+	else if (c == '%')
+		i = put_procent(flag);
 	return (i);
 }
 
@@ -179,73 +179,6 @@ int ft_put(char *str, int j)
 		i++;
 	}
 	return (i);
-}
-
-int ft_print_int(int i, t_list flag)
-{
-	int j;
-	int save;
-	char *str;
-
-	j = 0;
-	save = i;
-	if (flag.dot == 0 && i == 0)
-	{
-		while (j < flag.wight)
-		{
-			ft_putchar(' ');
-			j++;
-		}
-		return (j);
-	}
-	else if (i < 0 && (flag.dot >= 0 || flag.null == 1))
-	{
-	    if (flag.null == 1 && flag.dot == -1)
-	        ft_putchar('-');
-		i = -i;
-		j++;
-		flag.wight--;
-	}
-	str = ft_itoa(i);
-	j += put_int(str, save, flag);
-	free (str);
-	return (j);
-}
-
-int put_int(char *str, int save, t_list flag)
-{
-	int j;
-
-	j = 0;
-	if (flag.minus == 1)
-	{
-		j += put_int2(str, save, flag);
-	}
-	if (flag.dot >= 0 && flag.dot < ft_strlen(str))
-		flag.dot = ft_strlen(str);
-	if (flag.dot > 0)
-	{
-		flag.wight -= flag.dot;
-		j += print_null(flag.wight, 0, 0);
-	}
-	else
-		j += print_null(flag.wight, ft_strlen(str), flag.null);
-	if (flag.minus == 0)
-		j += put_int2(str, save, flag);
-	return (j);
-}
-
-int put_int2(char *str, int save, t_list flag)
-{
-	int j;
-
-	j = 0;
-	if (save < 0 && flag.dot >= 0)
-		ft_putchar('-');
-	if (flag.dot >= 0)
-		j += print_null(flag.dot - 1, ft_strlen(str) - 1, 1);
-	j += ft_put(str, ft_strlen(str));
-	return (j);
 }
 
 int print_null(int str1, int str2, int null)
@@ -357,13 +290,13 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-int main()
-{
-	int a;
-	int b;
+// int main()
+// {
+// 	int a;
+// 	int b;
 
-	a = ft_printf("Print: %10d\n", -204);
-	printf("%d\n", a);
-	b = printf("Print: %10d\n", -204);
-	printf("%d\n", b);
-}
+// 	a = ft_printf("Print: %30.20%30.20x\n", 1234567890);
+// 	printf("%d\n", a);
+// 	b = printf("Print: %30.20%30.20x\n", 1234567890);
+// 	printf("%d\n", b);
+// }

@@ -1,3 +1,0 @@
-C:/Users/Илюша/Desktop/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir
-C:/Users/Илюша/Desktop/ft_printf/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Илюша/Desktop/ft_printf/cmake-build-debug/CMakeFiles/rebuild_cache.dir
