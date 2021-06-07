@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_char.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 10:31:53 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/05/28 10:31:54 by cdelaine         ###   ########.fr       */
+/*   Created: 2021/04/19 11:49:34 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/04/19 11:49:37 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int print_char(char c, t_list flag)
+int	ft_memcmp (const void *arr1, const void *arr2, size_t n)
 {
-    int i;
+	unsigned char	*a1;
+	unsigned char	*a2;
+	size_t			i;
 
-    i = 0;
-    if (flag.minus == 1)
-        ft_putchar(c);
-    i = print_null(flag.wight, 1, 0);
-    if (flag.minus == 0)
-        ft_putchar(c);
-    return (i + 1);
+	i = 0;
+	a1 = (unsigned char *)arr1;
+	a2 = (unsigned char *)arr2;
+	while (i < n)
+	{
+		if (a1[i] != a2[i])
+			return ((int)(a1[i] - a2[i]));
+		i++;
+	}
+	return (0);
 }

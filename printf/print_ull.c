@@ -12,13 +12,12 @@
 
 #include "ft_printf.h"
 
-int ft_print_ull(va_list args, t_list flag)
+int	ft_print_ull(va_list args, t_list flag)
 {
-	unsigned int ul;
-    int j;
+	unsigned int	ul;
+	int				j;
 
-    ul = va_arg(args, unsigned int);
-
+	ul = va_arg(args, unsigned int);
 	j = 0;
 	if (flag.dot == 0 && ul == 0)
 	{
@@ -33,39 +32,41 @@ int ft_print_ull(va_list args, t_list flag)
 	return (j);
 }
 
-int put_ull(long long ul, t_list flag)
+int	put_ull(long long ul, t_list flag)
 {
-	int j;
+	int	j;
 
 	j = 0;
-    if (flag.dot >= 0 && flag.dot < ft_length(ul))
+	if (flag.dot >= 0 && flag.dot < ft_length(ul))
 		flag.dot = ft_length(ul);
 	if (flag.minus == 1)
 		j += put_ull2(ul, flag);
-    if (flag.dot > 0)
-    {
-        flag.wight -= flag.dot;
-        j += print_null(flag.wight, 0, 0);
-    }
-    else
-	    j += print_null(flag.wight, ft_length(ul), 0);
+	if (flag.dot >= 0)
+	{
+		flag.wight -= flag.dot;
+		j += print_null(flag.wight, 0, 0);
+	}
+	else
+		j += print_null(flag.wight, ft_length(ul), flag.null);
 	if (flag.minus == 0)
 		j += put_ull2(ul, flag);
 	return (j);
 }
 
-int put_ull2(long long ul, t_list flag)
+int	put_ull2(long long ul, t_list flag)
 {
-	int j;
+	int	j;
 
 	j = 0;
-    if (flag.dot >= 0)
-    {
-        print_null(flag.dot, ft_length(ul), 1);
-        ft_putnbr_ull(ul);
-        j += flag.dot;
-    }
-    return (j);
+	if (flag.dot >= 0)
+	{
+		print_null(flag.dot - 1, ft_length(ul) - 1, 1);
+		j += flag.dot;
+	}
+	else
+		j += ft_length(ul);
+	ft_putnbr_ull(ul);
+	return (j);
 }
 
 int	ft_length(long long int n)

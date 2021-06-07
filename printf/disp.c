@@ -1,41 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_string.c                                     :+:      :+:    :+:   */
+/*   disp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 10:52:42 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/05/28 10:52:44 by cdelaine         ###   ########.fr       */
+/*   Created: 2021/06/01 13:17:10 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/06/01 13:17:14 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_string(char *str, t_list flag)
+int	ft_put(char *str, int j)
 {
-	int j;
+	int	i;
 
-	j = 0;
-	if (flag.dot == 0)
-		j += ft_put("", flag.wight);
-	j += put_string(str, flag);
-	return (j);
+	i = 0;
+	while (str[i] && i < j)
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+	return (i);
 }
 
-int put_string(char *str, t_list flag)
+int	print_null(int str1, int str2, int null)
 {
-	int j;
+	int	i;
 
-	j = 0;
-    if (flag.dot > ft_strlen(str))
-        flag.dot = ft_strlen(str);
-	if (flag.minus == 1)
+	i = 0;
+	while (i < (str1 - str2))
 	{
-		j += ft_put(str, flag.dot);
+		if (null)
+			ft_putchar('0');
+		else
+			ft_putchar(' ');
+		i++;
 	}
-	j += print_null(flag.wight, flag.dot, 0);
-	if (flag.minus == 0)
-		j += ft_put(str, flag.dot);
-	return (j);
+	return (i);
+}
+
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

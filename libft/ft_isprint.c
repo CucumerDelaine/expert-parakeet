@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_procent.c                                    :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 14:41:41 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/05/28 14:41:45 by cdelaine         ###   ########.fr       */
+/*   Created: 2021/04/20 11:38:16 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/04/20 11:38:19 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int put_procent(t_list flag)
+int	ft_isprint(int ch)
 {
-	int j;
-
-	j = 0;
-	if (flag.minus == 1)
-		j += ft_putchar('%');
-	j += print_null(flag.wight, 1, flag.null);
-	if (flag.minus == 0)
-		j += ft_putchar('%');
-	return (j);
+	return (ch >= 32 && ch <= 126);
 }

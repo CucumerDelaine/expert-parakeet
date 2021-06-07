@@ -12,28 +12,25 @@
 
 #include "ft_printf.h"
 
-int ft_print_int(int i, t_list flag)
+int	ft_print_int(int i, t_list flag)
 {
-	int j;
-	int save;
-	char *str;
+	int		j;
+	int		save;
+	char	*str;
 
 	j = 0;
 	save = i;
 	if (flag.dot == 0 && i == 0)
 	{
-		while (j < flag.wight)
-		{
-			ft_putchar(' ');
-			j++;
-		}
+		j += print_null(flag.wight, 0, 0);
 		return (j);
 	}
-	else if (i < 0 && (flag.dot >= 0 || flag.null == 1))
+	else if (i < 0)
 	{
-	    if (flag.null == 1 && flag.dot == -1)
-	        ft_putchar('-');
 		i = -i;
+		if (flag.wight > ft_length(i) && flag.null == 1
+			&& flag.wight > flag.dot && flag.dot < 0)
+			flag.dot = flag.wight - 1;
 		j++;
 		flag.wight--;
 	}
@@ -43,15 +40,13 @@ int ft_print_int(int i, t_list flag)
 	return (j);
 }
 
-int put_int(char *str, int save, t_list flag)
+int	put_int(char *str, int save, t_list flag)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (flag.minus == 1)
-	{
 		j += put_int2(str, save, flag);
-	}
 	if (flag.dot >= 0 && flag.dot < ft_strlen(str))
 		flag.dot = ft_strlen(str);
 	if (flag.dot > 0)
@@ -66,12 +61,12 @@ int put_int(char *str, int save, t_list flag)
 	return (j);
 }
 
-int put_int2(char *str, int save, t_list flag)
+int	put_int2(char *str, int save, t_list flag)
 {
-	int j;
+	int	j;
 
 	j = 0;
-	if (save < 0 && flag.dot >= 0)
+	if (save < 0)
 		ft_putchar('-');
 	if (flag.dot >= 0)
 		j += print_null(flag.dot - 1, ft_strlen(str) - 1, 1);

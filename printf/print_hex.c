@@ -12,13 +12,12 @@
 
 #include "ft_printf.h"
 
-int ft_print_hex(va_list args, t_list flag, int a)
+int	ft_print_hex(va_list args, t_list flag, int a)
 {
-	unsigned long long int ul;
-    int j;
+	unsigned long long int	ul;
+	int						j;
 
-    ul = va_arg(args, unsigned int);
-
+	ul = va_arg(args, unsigned int);
 	j = 0;
 	if (flag.dot == 0 && ul == 0)
 	{
@@ -33,42 +32,44 @@ int ft_print_hex(va_list args, t_list flag, int a)
 	return (j);
 }
 
-int put_hex(long long ul, t_list flag, int a)
+int	put_hex(long long ul, t_list flag, int a)
 {
-	int j;
+	int	j;
 
 	j = 0;
-    if (flag.dot >= 0 && flag.dot < ft_length_hex(ul))
+	if (flag.dot >= 0 && flag.dot < ft_length_hex(ul))
 		flag.dot = ft_length_hex(ul);
 	if (flag.minus == 1)
 		j += put_hex2(ul, flag, a);
-    if (flag.dot > 0)
-    {
-        flag.wight -= flag.dot;
-        j += print_null(flag.wight, 0, 0);
-    }
-    else
-	    j += print_null(flag.wight, ft_length_hex(ul), 0);
+	if (flag.dot > 0)
+	{
+		flag.wight -= flag.dot;
+		j += print_null(flag.wight, 0, 0);
+	}
+	else
+		j += print_null(flag.wight, ft_length_hex(ul), flag.null);
 	if (flag.minus == 0)
 		j += put_hex2(ul, flag, a);
 	return (j);
 }
 
-int put_hex2(long long ul, t_list flag, int a)
+int	put_hex2(long long ul, t_list flag, int a)
 {
-	int j;
+	int	j;
 
 	j = 0;
-    if (flag.dot >= 0)
-    {
-        print_null(flag.dot, ft_length_hex(ul), 1);
-        if (a == 1)
-            ft_putnbr_hex(ul);
-        else if (a == 0)
-            ft_putnbr_hex_XX(ul);
-        j += flag.dot;
-    }
-    return (j);
+	if (flag.dot >= 0)
+	{
+		print_null(flag.dot - 1, ft_length_hex(ul) - 1, 1);
+		j += flag.dot;
+	}
+	else
+		j += ft_length_hex(ul);
+	if (a == 1)
+		ft_putnbr_hex(ul);
+	else if (a == 0)
+		ft_putnbr_hex_XX(ul);
+	return (j);
 }
 
 void	ft_putnbr_hex_XX(unsigned long long nb)

@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-LIST = ft_printf.c print_char.c print_hex.c print_int.c print_pointer.c print_procent.c print_string.c print_ull.c
+LIST = ft_printf.c print_char.c print_hex.c print_int.c print_pointer.c print_procent.c print_string.c print_ull.c itoa.c parce_flag.c disp.c type_digit.c
 OBJ = $(patsubst %.c,%.o,$(LIST))
 OBJ_B = $(patsubst %.c,%.o,$(LIST_B))
 D_FILES = $(patsubst %.c,%.d, $(LIST) $(LIST_B))
