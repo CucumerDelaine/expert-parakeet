@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
 void	*ft_free_all_split_alloc(char **str, int nbr)
 {
@@ -24,4 +24,18 @@ void	*ft_free_all_split_alloc(char **str, int nbr)
 	}
 	free(str);
 	return (NULL);
+}
+
+void	free_memory(char **str1, char **str2)
+{
+	int	i;
+
+	i = 0;
+	while (str1[i])
+		free(str1[i++]);
+	i = 0;
+	while (str2[i])
+		free(str2[i++]);
+	free(str1);
+	free(str2);
 }

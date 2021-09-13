@@ -1,130 +1,87 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/23 12:44:04 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/04/23 12:44:06 by cdelaine         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "push_swap.h"
 
-#include "libft.h"
-
-static int	nb(char const *s, char c)
+static int	ft_whostrok(char const *s, char c)
 {
-	int	nbr;
 	int	i;
+	int	strok;
 
-	nbr = 0;
 	i = 0;
-	while (s[i])
+	strok = 0;
+	while (s[0] && s[0] == c)
+		s++;
+	while (s[0])
 	{
-		while (s[i] == c)
-			i++;
-		if (i > 0 && s[i] && s[i - 1] == c)
-			nbr++;
-		if (s[i])
-			i++;
+		while (s[0] && s[0] != c)
+			s++;
+		while (s[0] && s[0] == c)
+			s++;
+		strok++;
 	}
-	if (s[0] != c)
-		nbr++;
-	if (nbr == 0 && s[i - 1] == c)
-		return (0);
-	return (nbr);
+	return (strok);
 }
 
-static char	**ft_nbrr2(char **str, char const *s, char c, int h)
+static int	ft_symbols(char const *s, char c)
 {
-	size_t	j;
-	int		i;
+	int	len;
 
-	j = 0;
-	i = 0;
-	while (s[++h])
+	len = 0;
+	while (*s == c)
+		s++;
+	while ((*s != c) && *s)
 	{
-		if (s[h] != c)
-			j++;
-		else if (h > 0 && s[h - 1] != c)
-		{
-			str[i] = malloc(sizeof(char) * (j + 1));
-			if (!(str[i]))
-				return (ft_free_all_split_alloc(str, i));
-			j = 0;
-			i++;
-		}
-		if (s[h + 1] == '\0' && s[h] != c)
-		{
-			str[i] = malloc(sizeof(char) * (j + 1));
-			if (!(str[i]))
-				return (ft_free_all_split_alloc(str, i));
-		}
+		s++;
+		len++;
 	}
-	return (str);
+	return (len);
 }
 
-static char	**ft_nbrr(char **str, char const *s, char c)
+char	**ft_free_strok(char **res, int i)
 {
-	int		i;
-	int		h;
-	char	**str2;
-
-	i = 0;
-	h = -1;
-	str2 = ft_nbrr2(str, s, c, h);
-	if (str2 == 0)
-		return (0);
-	return (str);
+	while (i >= 0)
+	{
+		free(res[i]);
+		i--;
+	}
+	free(res);
+	return (NULL);
 }
 
-static char	**ft_copy(char **str, char const *s, char c)
+static char	**ft_job(char **res, int strok, char const *s, char c)
 {
-	int	j;
 	int	i;
-	int	h;
+	int	l;
 
-	j = 0;
 	i = 0;
-	h = 0;
-	while (s[h])
+	while (i < strok)
 	{
-		if (s[h] != c)
-			str[i][j++] = s[h];
-		else if (h > 0 && s[h - 1] != c)
-		{
-			str[i][j] = '\0';
-			j = 0;
-			i++;
-		}
-		if (s[h + 1] == '\0' && s[h] != c)
-			str[i][j] = '\0';
-		h++;
+		res[i] = ((char *)malloc(sizeof(char) * (ft_symbols(s, c) + 1)));
+		if (!res[i])
+			return (ft_free_strok(res, i));
+		while (*s == c)
+			s++;
+		l = 0;
+		while (*s && (*s != c))
+			res[i][l++] = *s++;
+		res[i][l] = '\0';
+		i++;
 	}
-	return (str);
+	res[i] = 0;
+	return (res);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**str;
-	int		strnb;
+	int		i;
+	int		strok;
+	char	**res;
 
-	if (!s || !*s)
-	{
-		str = malloc(sizeof(char *) * 1);
-		if (!(str))
-			return (0);
-		*str = (void *)0;
-		return (str);
-	}
-	strnb = nb(s, c);
-	str = malloc(sizeof(char *) * (strnb + 1));
-	if (!str)
-		return (0);
-	if (ft_nbrr(str, s, c) != 0)
-		ft_copy(str, s, c);
-	else
-		return (0);
-	str[strnb] = (void *)0;
-	return (str);
+	i = 0;
+	if (!s)
+		return (NULL);
+	strok = ft_whostrok(s, c);
+	res = (char **)malloc((strok + 1) * sizeof(char *));
+	if (!res)
+		return (NULL);
+	res = ft_job(res, strok, s, c);
+	return (res);
 }

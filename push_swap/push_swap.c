@@ -9,112 +9,118 @@
 /*   Updated: 2021/08/08 14:29:43 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-int vetka_func()
+
+#include "push_swap.h"
+
+int	have_argv(char *argv, int *argc, int **arr_sort, int **arr)
 {
-	int i;
-	
-}
-int checker(char *argv)
-{
-	while(*argv)
-	{
-		if (ft_atoi(argv) == -2147483648)
-		argv = argv + 2;
-		if (!ft_isdigit(c) && *argv != '-' 
-		|| (ft_atoi(argv) > 2147483647) || (ft_atoi(argv) < -2147483648))
-		{
-		ft_putstr("Error'\n");
+	char	**num;
+	int		i;
+
+	num = NULL;
+	i = 0;
+	num = ft_split(argv, ' ');
+	*argc = ft_argv_len(num) + 1;
+	*arr = (int *)malloc(sizeof(int) * *argc + 1 );
+	*arr_sort = (int *)malloc(sizeof(int) * *argc + 1);
+	if (!*arr || !*arr_sort)
 		return (0);
-		}
+	while (i < (*argc - 1))
+	{
+		if (!checker_argv(*num))
+			return (0);
+		(*arr_sort)[i] = ft_atoi(*num);
+		(*arr)[i] = (*arr_sort)[i];
+		i++;
+		num++;
+	}
+	ft_free_strok(num - i, i);
+	return (1);
+}
+
+int	have_no_argv(char **argv, int *argc, int **arr_sort, int **arr)
+{
+	int	i;
+
+	i = 0;
+	*arr = (int *)malloc(sizeof(int) * *argc + 1 );
+	*arr_sort = (int *)malloc(sizeof(int) * *argc + 1);
+	while (i < (*argc - 1))
+	{
+		if (!checker_argv(*argv))
+			return (0);
+		(*arr_sort)[i] = ft_atoi(*argv);
+		(*arr)[i] = (*arr_sort)[i];
+		i++;
 		argv++;
 	}
 	return (1);
-}	
-
-int digit(int *argc, char *argv, int *array, int *array_sort)
-{
-	char **ar;
-	int i;
-
-	ar = ft_split(argv, ' ');
-	*argc = nb(argv) + 1;
-	*array = malloc(sizeof(int)) * *argc + 1);
-	*array_sort = malloc(sizeof(int)) * *argc + 1);
-	if (!*arr || !*arr_sort)
-		return (0);
-	while (i < (argc - 1))
-	{
-		if (!checker(*ar))
-			return (0);
-		(*array)[i] = ft_atoi(*ar);
-		(*array_sort)[i] = (*array)[i];
-		i++;
-		ar++;
-	}
-	ft_free_all_split_alloc(ar - i, i);
-	return (1);
 }
 
-int main(int argc, char **argv)
+int	new_lst(int *arr, int *ar_sort, int argc, t_struct **head_a)
 {
-	int *array;
-	int *array_sort;
+	int	i;
+	int	value;
+	int	order;
+
+	i = 0;
+	while (i < (argc - 1))
+	{
+		value = arr[i];
+		order = (found_at_buf(arr[i], ar_sort, argc - 1) + 1);
+		new_list(head_a, order, value);
+		i++;
+	}
+	return (i);
+}
+
+int	func_main(int **arr, int **ar_sort, int argc)
+{
+	int			i;
+	t_main		base;
+	t_struct	*head_a;
+	t_struct	*head_b;
+
+	i = 0;
+	head_a = NULL;
+	head_b = NULL;
+	quicksort(*ar_sort, 0, argc - 2);
+	if (!(checker_duplic(*ar_sort, argc - 1)) \
+	|| checker_sort(*arr, *ar_sort, argc - 1))
+		return (0);
+	i = new_lst(*arr, *ar_sort, argc, &head_a);
+	if (step_one_two(&head_a, &head_b, &base, i) == 0)
+		return (0);
+	step_three(&head_a, &head_b, &base);
+	step_four(&head_a, &head_b, &base, i);
+	step_five(&head_a, &head_b, &base);
+	step_six(&head_a, &head_b, &base, i);
+	// while (head_a)
+	// {
+		// head_a = head_a->next;
+		// printf("%d", (*head_a)->value);
+	// }
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	int	*arr;
+	int	*ar_sort;
 
 	if (argc == 1)
 	{
 		write(1, "\n", 1);
 		return (0);
 	}
-	if (digit(&argc, *argv, *array, *array_sort) == 0)
-		return (0);
-	vetka_func();
-}
-
-int	ft_isdigit(int c)
-{
-	return (c >= 48 && c <= 57);
-}
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s)
+	argv++;
+	if (ft_strchr(*argv, ' '))
 	{
-		while (s[i])
-		{
-			write (1, &(s[i]), 1);
-			i++;
-		}
+		if (have_argv(*argv, &argc, &ar_sort, &arr) == 0)
+			return (0);
 	}
-	write (1, "\n", 1);
-	return ;
-}
-
-int	ft_atoi(const char *str)
-{
-	long long int	p;
-	long long int	n;
-	long long int	i;
-
-	i = 0;
-	n = 1;
-	p = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' \
-	|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			n = -1;
-		i++;
-	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		p = ((p * 10) + (str[i] - 48));
-		i++;
-	}
-	p = p * n;
-	return (p);
+	else
+		if (have_no_argv(argv, &argc, &ar_sort, &arr) == 0)
+			return (0);
+	return (func_main(&arr, &ar_sort, argc));
 }
