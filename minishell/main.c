@@ -390,7 +390,6 @@ void	ft_ctrl_c(int id)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "^C", 3);
 		write(1, "  \n", 3);
 		rl_on_new_line();
 		rl_replace_line("", 0);
