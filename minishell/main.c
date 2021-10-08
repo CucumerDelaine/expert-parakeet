@@ -259,13 +259,12 @@ int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 				i++;
 			while (str[i] == '-' && !service_char(str[i + 1])) // флаги
 			{
-				i++;
 				j = i;
 				while (!service_char(str[i]))
 					i++;
 				flags = ft_substr(str, j, i - j); // добавление нескольких флагов
 				ft_lstadd_flags(&new, flags);
-				// printf("flags = %s\n", flags);
+				printf("flags = %s\n", flags);
 				while (ft_is_space(str[i]) && str[i] != '\0')
 					i++;
 			}
@@ -385,6 +384,14 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 
 }
 
+void my_handler (int signum)
+{
+	if (signum == SIGINT)
+	{
+		ft_putchar_fd('\n', 1);
+
+	}
+}
 
 int main(int argc, char **argv, char **env) // сделать выполнение команд c ctrl-C ctrl-D ctrl-
 {
@@ -403,6 +410,7 @@ int main(int argc, char **argv, char **env) // сделать выполнени
 	while (1)
 	{
 		cmd = NULL;
+		signal(SIGINT,my_handler);
 		if (ft_minishell(&our_env, readline("<minishell>"), env, &cmd))
 			return(1);
 	}
