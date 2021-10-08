@@ -384,13 +384,24 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 
 }
 
-void my_handler (int signum)
+void	ft_ctrl_c(int id)
 {
-	if (signum == SIGINT)
+	if (id == SIGINT)
 	{
-		ft_putchar_fd('\n', 1);
-
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "^C", 3);
+		write(1, "  \n", 3);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
+}
+
+void ft_signal_init()
+{
+		signal(SIGINT, ft_ctrl_c);
+		signal(SIGQUIT, SIG_IGN);
 }
 
 int main(int argc, char **argv, char **env) // сделать выполнение команд c ctrl-C ctrl-D ctrl-
@@ -410,7 +421,7 @@ int main(int argc, char **argv, char **env) // сделать выполнени
 	while (1)
 	{
 		cmd = NULL;
-		signal(SIGINT,my_handler);
+		ft_signal_init();
 		if (ft_minishell(&our_env, readline("<minishell>"), env, &cmd))
 			return(1);
 	}
