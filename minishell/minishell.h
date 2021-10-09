@@ -66,6 +66,12 @@ int		search_name_comand(t_cmd *cmd, t_env *env, char **oenv);
 int		find_comand(t_cmd *cmd, t_env *env, char **oenv);
 int		logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv);
 int		path(char *name_programm);
+int		check_key_value(t_env **env);
+int		free_normi(t_pipex *a);
+int		check_addres(t_env *env, char *cmd);
+int		check_path(t_cmd *cmd, t_env *env);
+void	plus_SHLVL(char **oenv);
+void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 
 //readline
 char	*readline(const char *line);

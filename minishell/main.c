@@ -264,7 +264,7 @@ int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 					i++;
 				flags = ft_substr(str, j, i - j); // добавление нескольких флагов
 				ft_lstadd_flags(&new, flags);
-				printf("flags = %s\n", flags);
+				// printf("flags = %s\n", flags);
 				while (ft_is_space(str[i]) && str[i] != '\0')
 					i++;
 			}

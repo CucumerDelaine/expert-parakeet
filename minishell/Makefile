@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = main.c utils.c utils_env.c libft/libft.a utils_command.c mainlogic.c exve.c exve2.c
+SRC = main.c utils.c utils_env.c libft/libft.a utils_command.c mainlogic.c exve.c exve2.c exec3.c
 
 OBJ		= $(SRC:.c=.o)
 

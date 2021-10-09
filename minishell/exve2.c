@@ -25,13 +25,13 @@ char **get_flag(t_cmd *cmd)
 	while (cmd->argum[j++])
 		i++;
 	flags = (char **)malloc(sizeof(char *) * (i + 2));
-	flags[i] = NULL;
-	i = 1;
+	flags[i + 1] = NULL;
+	i = 0;
 	j = 0;
 	flags[0] = ft_strdup(cmd->cmd);
 	while (cmd->flags[i])
 	{
-		flags[i] = ft_strdup(cmd->flags[i]);
+		flags[i + 1] = ft_strdup(cmd->flags[i]);
 		i++;
 	}
 	while(cmd->argum[j])
