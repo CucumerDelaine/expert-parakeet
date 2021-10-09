@@ -3,19 +3,28 @@
 t_cmd	*ft_lstnew_cmd(char *command)
 {
 	t_cmd	*new;
+	int i;
 
+	i = 0;
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
+	// new->flags = NULL;
+	// new->argum = NULL;
 	new->flags = (char**)malloc(sizeof(char *) * 10);
-	new->argum = (char**)malloc(sizeof(char *) * 30);
+	new->argum = (char**)malloc(sizeof(char *) * 10);
+	while (i < 10)
+	{
+		new->flags[i] = NULL;
+		new->argum[i] = NULL;
+		i++;
+	}
 	new->arg_num = 0;
 	new->flag_num = 0;
 	new->fd_in = 0;
 	new->fd_out = 1;
 	new->next = NULL;
 	new->cmd = command;
-
 	return (new);
 }
 

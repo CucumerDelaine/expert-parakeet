@@ -16,7 +16,9 @@ char *ft_quotes_one(char *str, int *i)
 	tmp3 = strdup(str + *i + 1);
 	str = ft_strjoin(tmp, tmp2);
 	str = ft_strjoin(str, tmp3);
-
+	free(tmp);
+	free(tmp2);
+	free(tmp3);
 //	*i = ft_strlen(tmp2) - 1;
 //	printf("tmp = |%s|\n", tmp);
 //	printf("tmp2 = |%s|\n", tmp2);
@@ -175,6 +177,7 @@ void ft_redir(t_cmd **cmd, char *str, int *i)
 				close(fd_next);
 			while (ft_is_space(str[*i]))
 				(*i)++;
+			free(file);
 			// printf ("file = |%s|\n", file);
 		}
 		else if (str[*i + 1] != '>')
@@ -197,9 +200,10 @@ void ft_redir(t_cmd **cmd, char *str, int *i)
 				close(fd_next);
 			while (ft_is_space(str[*i]))
 				(*i)++;
+			free(file);
 			// printf ("file = |%s|\n", file);
-//			printf ("str = %s\n", str + (*i));
-//			printf("fd == %d\n", fd_next);
+			// printf ("str = %s\n", str + (*i));
+			// printf("fd == %d\n", fd_next);
 		}
 
 	}
@@ -229,11 +233,62 @@ void ft_redir(t_cmd **cmd, char *str, int *i)
 				close(fd_back);
 			while (ft_is_space(str[*i]))
 				(*i)++;
+			free(file);
 		}
 	}
 //	printf("STROKA = %s", str);
 }
-int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
+
+void	ft_free_cmd(t_cmd **new)
+{
+	int i;
+	t_cmd *tmp;
+
+	if (!new)
+		return;
+	if (*new != NULL)
+	{
+		while (*new)
+		{
+			i = 0;
+			if ((*new)->flags[i])
+			{
+				while ((*new)->flags[i] != NULL)
+				{
+					// write(1,"fla\n",4);
+					// printf("%s\n",(*new)->flags[i]);
+					free((*new)->flags[i]);
+					i++;
+				}
+			}
+			i = 0;
+			if ((*new)->argum[i])
+			{
+				while ((*new)->argum[i] != NULL)
+				{
+					// write(1,"arg\n",4);
+					free((*new)->argum[i]);
+					i++;
+				}	
+			}
+			
+			free((*new)->flags);
+			(*new)->flags = NULL;
+			free((*new)->argum);
+			(*new)->argum = NULL;
+			tmp = *new;
+			(*new) = ((*new)->next);
+			free(tmp);
+			tmp = NULL;
+		}
+		// free(*new);
+		// *new = NULL;
+	}
+	
+	
+}
+
+int	postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 {
 	char *word;
 	char *argum;
@@ -254,7 +309,6 @@ int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 				i++;
 			word = ft_substr(str, j, i - j);
 			new = ft_lstnew_cmd(word);
-			// printf("command = %s\n", new->cmd);
 			while (ft_is_space(str[i]) && str[i] != '\0')
 				i++;
 			while (str[i] == '-' && !service_char(str[i + 1])) // флаги
@@ -264,7 +318,7 @@ int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 					i++;
 				flags = ft_substr(str, j, i - j); // добавление нескольких флагов
 				ft_lstadd_flags(&new, flags);
-				// printf("flags = %s\n", flags);
+				free(flags);
 				while (ft_is_space(str[i]) && str[i] != '\0')
 					i++;
 			}
@@ -275,7 +329,7 @@ int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 					i++;
 				argum = ft_substr(str, j, i - j);
 				ft_lstadd_argum(&new, argum);
-				// printf("argum = %s\n", argum);
+				free(argum);
 				while (ft_is_space(str[i]) && str[i] != '\0')
 					i++;
 			}
@@ -287,25 +341,24 @@ int postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
 				i++;
 		}
 		ft_lstadd_back_cmd(cmd, new);
-		free(new);
-		new = NULL;
+		// printf("cmd == %s, flags == %s, argum %s\n", (*cmd)->cmd, (*cmd)->flags[0], (*cmd)->argum[0]);
 		if (str[i] == '>' || str[i] == '<')
-		{
 			ft_redir(cmd, str, &i);
-		}
+		free(word);
+		word = NULL;
 	}
-//	i = 0;
-//	while ((*cmd)->flags[i])
-//	{
-//		printf("flags - %s\n", (*cmd)->flags[i]);
-//		i++;
-//	}
-//	i = 0;
-//	while((*cmd)->argum[i])
-//	{
-//		printf("argum - %s\n", (*cmd)->argum[i]);
-//		i++;
-//	}
+	// i = 0;
+	// while ((*cmd)->flags[i])
+	// {
+	// 	printf("flags %s\n", (*cmd)->flags[i]);
+	// 	i++;
+	// }
+	// i = 0;
+	// while((*cmd)->argum[i])
+	// {
+	// 	printf("argum %s\n", (*cmd)->argum[i]);
+	// 	i++;
+	// }
 	return (0);
 }
 
@@ -364,7 +417,7 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		write(1, "exit\n", 5);
 		exit(g_status_error);
 	}
-	else
+	else if (str[0] != '\0')
 	{
 		add_history(str);
 		str[ft_strlen(str) + 1] = '\0';
@@ -377,8 +430,10 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		str = parser(str, env);
 		postparser(str,our_env, new, cmd);
 			// return (ft_error("invalid command"));
+		printf("cmd = %s\n", (*cmd)->cmd);
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
+		ft_free_cmd(cmd);
 	}
 	return (0);
 
