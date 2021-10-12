@@ -288,7 +288,7 @@ void	ft_free_cmd(t_cmd **new)
 	
 }
 
-int	postparser(char *str, t_env **our_env, t_cmd *new, t_cmd **cmd)
+int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 {
 	char *word;
 	char *argum;
@@ -428,13 +428,14 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		}
 		i = -1;
 		str = parser(str, env);
-		postparser(str,our_env, new, cmd);
+		postparser(str, new, cmd);
 			// return (ft_error("invalid command"));
-		printf("cmd = %s\n", (*cmd)->cmd);
+		printf("cmd  = %s\n", (*cmd)->cmd);
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
 		ft_free_cmd(cmd);
 	}
+
 	return (0);
 
 }

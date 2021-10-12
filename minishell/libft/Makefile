@@ -5,7 +5,7 @@ OBJ = $(patsubst %.c,%.o,$(LIST))
 OBJ_B = $(patsubst %.c,%.o,$(LIST_B))
 D_FILES = $(patsubst %.c,%.d, $(LIST) $(LIST_B))
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 CC = gcc
 
 all : $(NAME)

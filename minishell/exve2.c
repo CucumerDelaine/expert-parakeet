@@ -17,7 +17,6 @@ char **get_flag(t_cmd *cmd)
 	int i;
 	int j;
 	char **flags;
-
 	i = 0;
 	j = 0;
 	while (cmd->flags[i])

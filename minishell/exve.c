@@ -40,7 +40,7 @@ void call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 	flags = get_flag(cmd);
 	printf("%s\n", name_program);
 	// check_minishel(name_program, oenv, cmd);
-	int i = 0;
+	// int i = 0;
 	// while (flags[i])
 	// 	printf("%s\n", flags[i++]);
 	execve(name_program, flags, oenv);

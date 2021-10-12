@@ -33,9 +33,9 @@ int search_name_comand(t_cmd *cmd, t_env *env, char **oenv)
 	return (g_status_error);
 }
 
-int find_comand(t_cmd *cmd, t_env *env, char **oenv)
+int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 {
-	int save_stdin;
+	int	save_stdin;
 
 	save_stdin = dup(STDIN_FILENO);
 	if (cmd->fd_in != 0)
@@ -46,13 +46,13 @@ int find_comand(t_cmd *cmd, t_env *env, char **oenv)
 		close(cmd->fd_in);
 		dup2(cmd->fd_in, 0);
 	}
-	return(g_status_error);
+	return (g_status_error);
 }
 
 int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 {
-	t_cmd *cmd;
-	t_env *env;
+	t_cmd	*cmd;
+	t_env	*env;
 
 	cmd = *cmd_origin;
 	env = *env_origin;
