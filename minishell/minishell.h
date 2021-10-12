@@ -26,6 +26,8 @@ typedef struct s_cmd {
 	int			active;
 	int 		fd_in;
 	int 		fd_out;
+	int			back_d_red;
+	char		**red_words;
 	struct s_cmd *next;
 }	t_cmd;
 

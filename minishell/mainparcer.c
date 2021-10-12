@@ -148,13 +148,13 @@ char *parser(char *str, char **env)
 	return (str);
 }
 
-void ft_redir(t_cmd **cmd, char *str, int *i)
+void ft_redir(t_cmd **cmd, char *str, int *i, int *red)
 {
 	int j;
 	char *file;
 	int fd_next;
 	int fd_back;
-
+	
 	if (str[*i] == '>')
 	{
 		if (str[*i + 1] == '>')
@@ -211,7 +211,17 @@ void ft_redir(t_cmd **cmd, char *str, int *i)
 	{
 		if (str[(*i) + 1] == '<')
 		{
-			;
+			(*cmd)->back_d_red = 1;
+			*i = (*i) + 2;	
+			while (ft_is_space(str[*i]))
+				(*i)++;
+			j = (*i);
+			while (!service_char(str[(*i)]))
+				(*i)++;
+			(*cmd)->red_words[(*red)] = ft_substr(str, j, (*i) - j);
+			(*red)++;
+			while (ft_is_space(str[*i]))
+				(*i)++;
 		}
 		else if (str[*i + 1] != '<')
 		{
@@ -271,7 +281,17 @@ void	ft_free_cmd(t_cmd **new)
 					i++;
 				}	
 			}
-			
+			i = 0;
+			if ((*new)->red_words[i])
+			{
+				while((*new)->red_words[i] != NULL)
+				{
+					free((*new)->red_words[i]);
+					i++;
+				}
+			}
+			free((*new)->red_words);
+			(*new)->red_words = NULL;
 			free((*new)->flags);
 			(*new)->flags = NULL;
 			free((*new)->argum);
@@ -293,11 +313,13 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 	char *word;
 	char *argum;
 	char *flags;
+	int red;
 
 	int i;
 	int j;
 
 	i = 0;
+	red = 0;
 	while (ft_is_space(str[i]))
 		i++;
 	while (str[i] != '\0')
@@ -340,17 +362,25 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 			while (ft_is_space(str[i]) && str[i] != '\0')
 				i++;
 		}
-		ft_lstadd_back_cmd(cmd, new);
+		else if (str[i] == '>' || str[i] == '<')
+			ft_redir(&new, str, &i, &red);
+		if (str[i] == '\0')
+		{
+			ft_lstadd_back_cmd(cmd, new);
+			free(word);				
+			word = NULL;
+		}
 		// printf("cmd == %s, flags == %s, argum %s\n", (*cmd)->cmd, (*cmd)->flags[0], (*cmd)->argum[0]);
-		if (str[i] == '>' || str[i] == '<')
-			ft_redir(cmd, str, &i);
-		free(word);
-		word = NULL;
+
 	}
 	// i = 0;
-	// while ((*cmd)->flags[i])
+	// while ((*cmd)->red_words[i])
 	// {
-	// 	printf("flags %s\n", (*cmd)->flags[i]);
+		// printf("flags %s\n", (new)->red_words[0]);
+		// printf("flags %s\n", (new)->red_words[1]);
+		// printf("flags %s\n", (*cmd)->red_words[0]);
+		// printf("flags %s\n", (*cmd)->red_words[3]);
+
 	// 	i++;
 	// }
 	// i = 0;
