@@ -365,6 +365,7 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 			i++;
 			while (ft_is_space(str[i]) && str[i] != '\0')
 				i++;
+			ft_lstadd_back_cmd(cmd, new);
 		}
 		else if (str[i] == '>' || str[i] == '<')
 			ft_redir(&new, str, &i, &red);
