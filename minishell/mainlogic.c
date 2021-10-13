@@ -59,6 +59,6 @@ int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 	// if (cmd->pipe == 1)
 	// 	pipe_logic();
 	// else
-		find_comand(cmd, env, oenv);
+	find_comand(cmd, env, oenv);
 	return (0);
 }

@@ -46,6 +46,7 @@ char *ft_quotes_two(char *str, int *i, char **env)
 	str = ft_strjoin(tmp, tmp2);
 	return (str);
 }
+
 char *ft_dollar(char *str, int *i, char **env)
 {
 	int j = *i;
@@ -130,6 +131,7 @@ char *ft_other_dollar(char *str, int *i)
 //	}
 	return(str);
 }
+
 char *parser(char *str, char **env)
 {
 	int i;
@@ -249,7 +251,7 @@ void ft_redir(t_cmd **cmd, char *str, int *i, int *red)
 //	printf("STROKA = %s", str);
 }
 
-void	ft_free_cmd(t_cmd **new)
+void	ft_free_cmd(t_cmd **new, char *str)
 {
 	int i;
 	t_cmd *tmp;
@@ -301,6 +303,7 @@ void	ft_free_cmd(t_cmd **new)
 			free(tmp);
 			tmp = NULL;
 		}
+		free(str);
 		// free(*new);
 		// *new = NULL;
 	}
@@ -320,6 +323,7 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 
 	i = 0;
 	red = 0;
+	word = NULL;
 	while (ft_is_space(str[i]))
 		i++;
 	while (str[i] != '\0')
@@ -459,11 +463,10 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		i = -1;
 		str = parser(str, env);
 		postparser(str, new, cmd);
-			// return (ft_error("invalid command"));
-		printf("cmd  = %s\n", (*cmd)->cmd);
+			// return (ft_error("invalid command"))
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
-		ft_free_cmd(cmd);
+		ft_free_cmd(cmd, str);
 	}
 
 	return (0);
@@ -498,11 +501,6 @@ int main(int argc, char **argv, char **env) // сделать выполнени
 	(void ) argv;
 	if (ft_fill_env(env, &our_env))
 		(ft_error("error_malloc"));
-//	while (our_env->next)
-//	{
-//		printf("key = %s, value = %s\n", our_env->key, our_env->value);
-//		our_env = our_env->next;
-//	}
 	while (1)
 	{
 		cmd = NULL;

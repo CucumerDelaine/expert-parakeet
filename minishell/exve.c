@@ -62,7 +62,11 @@ int comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 	if (pid < 0)
 		exit (1);
 	if (pid == 0)
+	{
+		// printf("hi\n");
+		// printf("%s", cmd->cmd);
 		call_execve_proc(cmd, env, oenv);
+	}
 	waitpid(pid, &err, WUNTRACED | WCONTINUED);
 	g_status_error = WEXITSTATUS(err);
 	return(g_status_error);

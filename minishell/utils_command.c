@@ -11,10 +11,12 @@ t_cmd	*ft_lstnew_cmd(char *command)
 		return (NULL);
 	new->flags = (char**)malloc(sizeof(char *) * 10);
 	new->argum = (char**)malloc(sizeof(char *) * 10);
+	new->red_words = (char **)malloc(sizeof(char *) * 10);
 	while (i < 10)
 	{
 		new->flags[i] = NULL;
 		new->argum[i] = NULL;
+		new->red_words[i] = NULL;
 		i++;
 	}
 	new->arg_num = 0;
@@ -24,7 +26,6 @@ t_cmd	*ft_lstnew_cmd(char *command)
 	new->next = NULL;
 	new->cmd = command;
 	new->back_d_red = 0;
-	new->red_words = (char **)malloc(sizeof(char *) * 10);
 	return (new);
 }
 

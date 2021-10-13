@@ -42,6 +42,7 @@ typedef struct s_pipex
 
 int g_status_error;
 
+
 char	*ft_quotes_one(char *str, int *i);
 char	*ft_dollar(char *str, int *i, char **env);
 int		ft_is_space(char c);
@@ -74,7 +75,7 @@ int		check_addres(t_env *env, char *cmd);
 int		check_path(t_cmd *cmd, t_env *env);
 void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
-void	ft_free_cmd(t_cmd **new);
+void	ft_free_cmd(t_cmd **new, char *str);
 
 //readline
 char	*readline(const char *line);
