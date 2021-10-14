@@ -44,9 +44,6 @@ int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 	return (g_status_error);
 }
 
-<<<<<<< HEAD
-int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
-=======
 int	ft_lstsize1(t_cmd *lst)
 {
 	int	i;
@@ -138,21 +135,12 @@ int pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc)
 }
 
 int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
->>>>>>> 78be3099cd725dbae0efde4cb2519ca51e6ba909
 {
 	t_cmd	*cmd;
 	t_env	*env;
 
 	cmd = *cmd_origin;
 	env = *env_origin;
-<<<<<<< HEAD
-/*
-	if (cmd->pipe == 1)
-	 	pipe_logic();
-	else
-*/ 
-	find_comand(cmd, env, oenv);
-=======
 	if (cmd->fd_in != 0)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if(cmd->fd_out != 1)
@@ -162,6 +150,5 @@ int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 	else
 	printf("%d\n", 3%2); 
 		find_comand(cmd, env, oenv);
->>>>>>> 78be3099cd725dbae0efde4cb2519ca51e6ba909
 	return (0);
 }

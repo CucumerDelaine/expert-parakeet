@@ -485,7 +485,6 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		str = parser(str, env); // убрать утечки у доллара и ковычек
 		postparser(str, new, cmd);
 			// return (ft_error("invalid command"))
-		
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
 		ft_free_cmd(cmd, str);
