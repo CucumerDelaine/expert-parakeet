@@ -38,11 +38,7 @@ void call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 	else
 		name_program = get_addres(oenv, env, cmd->cmd);
 	flags = get_flag(cmd);
-	printf("%s\n", name_program);
-	// check_minishel(name_program, oenv, cmd);
-	// int i = 0;
-	// while (flags[i])
-	// 	printf("%s\n", flags[i++]);
+	check_minishel(name_program, oenv, cmd);
 	execve(name_program, flags, oenv);
 	perror(name_program);
 	exit (127);
@@ -57,14 +53,15 @@ int comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 	err = 0;
 	// if (!path(cmd->cmd) && check_path(cmd, env))
 	// 	return (g_status_error);
-
+	// printf("cmd = %s\n", cmd->cmd);
 	pid = fork();
 	if (pid < 0)
 		exit (1);
+	// if (pid > 0)
+		// printf("cmd0 = %s\n", cmd->cmd);
 	if (pid == 0)
 	{
-		// printf("hi\n");
-		// printf("%s", cmd->cmd);
+		// printf("cmd1 = %s\n", cmd->cmd);
 		call_execve_proc(cmd, env, oenv);
 	}
 	waitpid(pid, &err, WUNTRACED | WCONTINUED);

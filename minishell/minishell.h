@@ -76,6 +76,8 @@ int		check_path(t_cmd *cmd, t_env *env);
 void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 void	ft_free_cmd(t_cmd **new, char *str);
+void	pipe_logic2(t_cmd *cmd, t_env *env, char **oenv);
+int		pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
 
 //readline
 char	*readline(const char *line);
