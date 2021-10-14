@@ -6,6 +6,7 @@ char *ft_quotes_one(char *str, int *i)
 	char *tmp;
 	char *tmp2;
 	char *tmp3;
+	char *freez;
 	while (str[++(*i)])
 	{
 		if (str[(*i)] == '\'')
@@ -14,16 +15,19 @@ char *ft_quotes_one(char *str, int *i)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
 	tmp3 = strdup(str + *i + 1);
+	freez = str;
 	str = ft_strjoin(tmp, tmp2);
+	*i = ft_strlen(str) - 1;
+	free(freez);
+	freez = str;
 	str = ft_strjoin(str, tmp3);
+	free(freez);
 	free(tmp);
+	tmp = NULL;
 	free(tmp2);
+	tmp2 = NULL;
 	free(tmp3);
-//	*i = ft_strlen(tmp2) - 1;
-//	printf("tmp = |%s|\n", tmp);
-//	printf("tmp2 = |%s|\n", tmp2);
-//	printf("str = |%s|\n", str);
-//	printf("i = |%d|\n", *i);
+	tmp3 = NULL;
 	return (str);
 }
 
@@ -32,18 +36,32 @@ char *ft_quotes_two(char *str, int *i, char **env)
 	int j = *i;
 	char *tmp;
 	char *tmp2;
-	//	char *tmp3;
+	char *tmp3;
+	char *freez;
+	(*i)++;
 	while (str[*i])
 	{
 		if (str[(*i)] == '\"')
 			break;
 		if (str[*i] == '$')
 			str = ft_dollar(str, i, env);
-		i++;
+		(*i)++;
 	}
 	tmp = ft_substr(str, 0, j);
-	tmp2 = ft_substr(str,j + 1 , ft_strlen(str));
+	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
+	tmp3 = ft_strdup(str + *i + 1);
+	freez = str;
 	str = ft_strjoin(tmp, tmp2);
+	*i = ft_strlen(str) - 1;
+	str = ft_strjoin(str, tmp3);
+	if (ft_strlen(tmp) == 0 && ft_strlen(tmp2) == 0)
+		return (NULL);
+	free(freez);
+	freez = NULL;
+	free(tmp);
+	tmp = NULL;
+	free(tmp2);
+	tmp2 = NULL;
 	return (str);
 }
 
@@ -67,7 +85,7 @@ char *ft_dollar(char *str, int *i, char **env)
 	if (*i == j + 1)
 		return (str);
 	tmp = ft_substr(str, j + 1, *i - j - 1);
-	tmp[*i] = '=';
+	tmp[ft_strlen(tmp) + 1] = '=';
 	tmp[*i + 1] = '\0';
 	while (env[q])
 	{
@@ -88,13 +106,11 @@ char *ft_dollar(char *str, int *i, char **env)
 	else
 	{
 		tmp = ft_substr(str, 0, j);
-		tmp3 = ft_substr(str, *i, ft_strlen(str) - *i);
+		tmp3 = ft_substr(str, *i, ft_strlen(str) - *i - 1);
+		if (ft_strlen(tmp) == 0 && ft_strlen(tmp3) == 0)
+			return(NULL);
 		str = ft_strjoin(tmp, tmp3);
 	}
-//	printf("tmp = |%s|\n", tmp);
-//	printf("tmp2 = |%s|\n", tmp2);
-//	printf("tmp3 = |%s|\n", tmp3);
-//	printf("str = |%s|\n", str);
 	return (str);
 }
 
@@ -135,17 +151,21 @@ char *ft_other_dollar(char *str, int *i)
 char *parser(char *str, char **env)
 {
 	int i;
+	char *tmp;
 
 	i = 0;
 	while(str[i])
 	{
+		tmp = str;
 		if (str[i] == '\'')
 			str = ft_quotes_one(str, &i);
-		if (str[i] == '$')
+		else if (str[i] == '$')
 			str = ft_dollar(str, &i, env);
-		if (str[i] == '\"')
+		else if (str[i] == '\"')
 			str = ft_quotes_two(str, &i, env);
 		i++;
+		if (str == NULL)
+			return (NULL);
 	}
 	return (str);
 }
@@ -365,6 +385,7 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 			i++;
 			while (ft_is_space(str[i]) && str[i] != '\0')
 				i++;
+			ft_lstadd_back_cmd(cmd, new);
 		}
 		else if (str[i] == '>' || str[i] == '<')
 			ft_redir(&new, str, &i, &red);
@@ -458,16 +479,19 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		while (str[++i])
 		{
 			if (preparser(str, &i))
-				return(ft_error("Unknown command\n"));
+				return(ft_error("Invalid command\n"));
 		}
 		i = -1;
-		str = parser(str, env);
+		str = parser(str, env); // убрать утечки у доллара и ковычек
 		postparser(str, new, cmd);
 			// return (ft_error("invalid command"))
+		
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
 		ft_free_cmd(cmd, str);
 	}
+	else
+		free(str);
 
 	return (0);
 

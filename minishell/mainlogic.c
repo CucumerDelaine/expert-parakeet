@@ -49,16 +49,18 @@ int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 	return (g_status_error);
 }
 
-int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
+int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 {
 	t_cmd	*cmd;
 	t_env	*env;
 
 	cmd = *cmd_origin;
 	env = *env_origin;
-	// if (cmd->pipe == 1)
-	// 	pipe_logic();
-	// else
+/*
+	if (cmd->pipe == 1)
+	 	pipe_logic();
+	else
+*/ 
 	find_comand(cmd, env, oenv);
 	return (0);
 }
