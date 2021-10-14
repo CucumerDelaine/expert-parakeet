@@ -324,6 +324,7 @@ void	ft_free_cmd(t_cmd **new, char *str)
 			tmp = NULL;
 		}
 		free(str);
+		str = NULL;
 		// free(*new);
 		// *new = NULL;
 	}
@@ -331,7 +332,7 @@ void	ft_free_cmd(t_cmd **new, char *str)
 	
 }
 
-int	postparser(char *str, t_cmd *new, t_cmd **cmd)
+int	postparser(char *str, t_cmd  *new, t_cmd **cmd)
 {
 	char *word;
 	char *argum;
@@ -344,6 +345,8 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 	i = 0;
 	red = 0;
 	word = NULL;
+	argum = NULL;
+	flags = NULL;
 	while (ft_is_space(str[i]))
 		i++;
 	while (str[i] != '\0')
@@ -386,13 +389,15 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd)
 			while (ft_is_space(str[i]) && str[i] != '\0')
 				i++;
 			ft_lstadd_back_cmd(cmd, new);
+			new = NULL;
 		}
 		else if (str[i] == '>' || str[i] == '<')
 			ft_redir(&new, str, &i, &red);
 		if (str[i] == '\0')
 		{
 			ft_lstadd_back_cmd(cmd, new);
-			free(word);				
+			new = NULL;
+			free(word);
 			word = NULL;
 		}
 		// printf("cmd == %s, flags == %s, argum %s\n", (*cmd)->cmd, (*cmd)->flags[0], (*cmd)->argum[0]);
