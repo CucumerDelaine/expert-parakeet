@@ -141,8 +141,6 @@ int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 
 	cmd = *cmd_origin;
 	env = *env_origin;
-	// printf("%s\n", cmd->cmd);
-	// cmd->cmd = "ls";
 	// if (cmd->fd_in != 0)
 	// 	dup2(cmd->fd_in, STDIN_FILENO);
 	// if(cmd->fd_out != 1)
