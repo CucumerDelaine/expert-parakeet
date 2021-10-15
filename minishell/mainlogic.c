@@ -125,10 +125,10 @@ int pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc)
 		close(ft[0]);
 		wait(NULL);
 	}
-	else if (argc%2 == 0)
-	{
+	// else if (argc%2 == 0)
+	// {
 		
-	}
+	// }
 	// else
 
 	return (0);
@@ -143,14 +143,13 @@ int logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 	env = *env_origin;
 	// printf("%s\n", cmd->cmd);
 	// cmd->cmd = "ls";
-	if (cmd->fd_in != 0)
-		dup2(cmd->fd_in, STDIN_FILENO);
-	if(cmd->fd_out != 1)
-		dup2(cmd->fd_out, STDOUT_FILENO);
-	if ((ft_lstsize1(cmd) - 1) > 0)
-		pipe_logic(cmd, env, oenv, ft_lstsize1(cmd) - 1);
+	// if (cmd->fd_in != 0)
+	// 	dup2(cmd->fd_in, STDIN_FILENO);
+	// if(cmd->fd_out != 1)
+	// 	dup2(cmd->fd_out, STDOUT_FILENO);
+	// if ((ft_lstsize1(cmd) - 1) > 0)
+	// 	pipe_logic(cmd, env, oenv, ft_lstsize1(cmd) - 1);
 	// else
-	// printf("%d\n", 3%2); 
 		find_comand(cmd, env, oenv);
 	return (0);
 }

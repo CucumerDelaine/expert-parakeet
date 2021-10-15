@@ -34,7 +34,11 @@ char **get_flag(t_cmd *cmd)
 		i++;
 	}
 	while(cmd->argum[j])
-		flags[i++] = ft_strdup(cmd->argum[j++]);
+	{
+		flags[i + 1] = ft_strdup(cmd->argum[j]);
+		i++;
+		j++;
+	}
 	return (flags);
 }
 
