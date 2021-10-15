@@ -312,6 +312,8 @@ void	ft_free_cmd(t_cmd **new, char *str)
 					i++;
 				}
 			}
+			free((*new)->cmd);
+			(*new)->cmd = NULL;
 			free((*new)->red_words);
 			(*new)->red_words = NULL;
 			free((*new)->flags);
