@@ -31,8 +31,8 @@ void call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 	char *name_program;
 	char **flags;
 
-	if(cmd->fd_out != 1)
-		dup2(cmd->fd_out, 1);
+	// if(cmd->fd_out != 1)
+	// 	dup2(cmd->fd_out, 1);
 	if (path(cmd->cmd))
 		name_program = ft_strdup(cmd->cmd);
 	else
