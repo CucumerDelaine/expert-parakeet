@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c
+SRC = mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c env.c unset.c exit.c
 
 SRCL = ./libft
 

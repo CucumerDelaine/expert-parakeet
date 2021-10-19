@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	if (s2 == NULL)
+		return (1);
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
 void	ft_delete_list_env(char *key, t_env **env)
 {
 	t_env	*tmp;
@@ -42,10 +54,10 @@ int	comand_unset(t_cmd *cmd, t_env *envp)
 	int	i;
 
 	i = 0;
-	while (cmd->args[i])
+	while (cmd->argum[i])
 	{	
-		if (ft_find_list_env(cmd->args[i], &envp))
-			ft_delete_list_env(cmd->args[i], &envp);
+		if (ft_find_list_env(cmd->argum[i], &envp))
+			ft_delete_list_env(cmd->argum[i], &envp);
 		i++;
 	}
 	return (0);

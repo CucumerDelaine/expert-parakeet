@@ -31,8 +31,6 @@ void call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 	char *name_program;
 	char **flags;
 
-	// if(cmd->fd_out != 1)
-	// 	dup2(cmd->fd_out, 1);
 	if (path(cmd->cmd))
 		name_program = ft_strdup(cmd->cmd);
 	else
@@ -51,17 +49,13 @@ int comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 	int err;
 
 	err = 0;
-	// if (!path(cmd->cmd) && check_path(cmd, env))
-	// 	return (g_status_error);
-	// printf("cmd = %s\n", cmd->cmd);
+	if (!path(cmd->cmd) && check_path(cmd, env))
+		return (g_status_error);
 	pid = fork();
 	if (pid < 0)
 		exit (1);
-	// if (pid > 0)
-		// printf("cmd0 = %s\n", cmd->cmd);
 	if (pid == 0)
 	{
-		// printf("cmd1 = %s\n", cmd->cmd);
 		call_execve_proc(cmd, env, oenv);
 	}
 	waitpid(pid, &err, WUNTRACED | WCONTINUED);

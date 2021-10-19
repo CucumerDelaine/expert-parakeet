@@ -65,7 +65,7 @@ char	*print_exit(t_pipex *str, int i);
 char	*get_addres(char **oenvp, t_env *envp, char *cmd_string);
 void	call_execve_proc(t_cmd *cmd, t_env *env, char **oenv);
 int		comand_exve(t_cmd *cmd, t_env *env, char **oenv);
-int		search_name_comand(t_cmd *cmd, t_env *env, char **oenv);
+// int		search_name_comand(t_cmd *cmd, t_env *env, char **oenv);
 int		find_comand(t_cmd *cmd, t_env *env, char **oenv);
 int		logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv);
 int		path(char *name_programm);
@@ -76,9 +76,20 @@ int		check_path(t_cmd *cmd, t_env *env);
 void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 void	ft_free_cmd(t_cmd **new, char *str);
+
+// pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
-void 	cmd_proc(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd);
+void 	cmd_proc(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd, int flag);
 void 	cmd_proc_last(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd);
+void	cmd_proc_two(t_cmd *cmd, t_env *env, char **oenv, int *ft, int *fd, int argc);
+void	cmd_proc_many(t_cmd *cmd, t_env *env, char **oenv, int *ft, int *fd, int argc);
+
+void	ft_delete_list_env(char *key, t_env **env);
+t_env	*ft_find_list_env(char *find, t_env **env);
+int		comand_unset(t_cmd *cmd, t_env *envp);
+void	print_envp(t_env *envp, int fd);
+int		comand_env(t_cmd *cmd, t_env *env);
+int		comand_exit(t_cmd *cmd);
 
 //readline
 char	*readline(const char *line);
