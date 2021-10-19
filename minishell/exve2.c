@@ -12,11 +12,12 @@
 
 #include "minishell.h"
 
-char **get_flag(t_cmd *cmd)
+char	**get_flag(t_cmd *cmd)
 {
-	int i;
-	int j;
-	char **flags;
+	int		i;
+	int		j;
+	char	**flags;
+
 	i = 0;
 	j = 0;
 	while (cmd->flags[i])
@@ -33,7 +34,7 @@ char **get_flag(t_cmd *cmd)
 		flags[i + 1] = ft_strdup(cmd->flags[i]);
 		i++;
 	}
-	while(cmd->argum[j])
+	while (cmd->argum[j])
 	{
 		flags[i + 1] = ft_strdup(cmd->argum[j]);
 		i++;
@@ -56,7 +57,7 @@ void	free_memory(char **str1, char **str2)
 	free(str2);
 }
 
-char *print_exit(t_pipex *str, int i)
+char	*print_exit(t_pipex *str, int i)
 {
 	ft_putstr_fd(str->comand[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
@@ -71,7 +72,7 @@ char	*get_addres(char **oenvp, t_env *envp, char *cmd_string)
 
 	str.i = 0;
 	while (ft_strncmp(oenvp[str.i], "PATH=", 5))
-		if(str.i++ == 1000)
+		if (str.i++ == 1000)
 			print_exit(&str, 0);
 	str.strings_way = ft_split(oenvp[str.i] + 5, ':');
 	str.comand = ft_split(cmd_string, ' ');

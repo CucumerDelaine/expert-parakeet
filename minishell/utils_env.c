@@ -57,20 +57,20 @@ void	ft_lstclear_env(t_env **lst)
 	}
 }
 
-int ft_fill_env(char **env, t_env **our_env)
+int	ft_fill_env(char **env, t_env **our_env)
 {
-	int i;
-	int j;
-	t_env *new;
+	int		i;
+	int		j;
+	t_env	*new;
 
 	i = 0;
 	j = 0;
-	while(env[i])
+	while (env[i])
 	{
 		while (env[i][j] != '=')
 			j++;
-		new = ft_lstnew_env(ft_substr(env[i], 0, j), ft_substr(env[i], j
-		+ 1,ft_strlen(env[i])));
+		new = ft_lstnew_env(ft_substr(env[i], 0, j), ft_substr(env[i], \
+		j + 1, ft_strlen(env[i])));
 		if (!new)
 		{
 			ft_lstclear_env(&new);
@@ -80,5 +80,5 @@ int ft_fill_env(char **env, t_env **our_env)
 		j = 0;
 		i++;
 	}
-	return(0);
+	return (0);
 }

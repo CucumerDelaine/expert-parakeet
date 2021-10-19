@@ -79,10 +79,12 @@ void	ft_free_cmd(t_cmd **new, char *str);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
-void 	cmd_proc(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd, int flag);
+void 	cmd_proc(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd);
 void 	cmd_proc_last(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd);
-void	cmd_proc_two(t_cmd *cmd, t_env *env, char **oenv, int *ft, int *fd, int argc);
-void	cmd_proc_many(t_cmd *cmd, t_env *env, char **oenv, int *ft, int *fd, int argc);
+void	cmd_proc_two(t_cmd *cmd, t_env *env, char **oenv, int argc);
+void	cmd_proc_many(t_cmd *cmd, t_env *env, char **oenv, int argc);
+void	proc_close(t_cmd *cmd, int flag, int *ft, int *fd);
+void	errr1(pid_t pid, int argc);
 
 void	ft_delete_list_env(char *key, t_env **env);
 t_env	*ft_find_list_env(char *find, t_env **env);

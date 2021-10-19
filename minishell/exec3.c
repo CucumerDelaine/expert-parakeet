@@ -23,7 +23,7 @@ int	free_normi(t_pipex *a)
 	return (1);
 }
 
-int check_addres(t_env *env, char *cmd)
+int	check_addres(t_env *env, char *cmd)
 {
 	t_pipex	str;
 
@@ -48,7 +48,7 @@ int check_addres(t_env *env, char *cmd)
 	return (0);
 }
 
-int check_path(t_cmd *cmd, t_env *env)
+int	check_path(t_cmd *cmd, t_env *env)
 {
 	t_env	*tmp;
 
@@ -66,21 +66,21 @@ int check_path(t_cmd *cmd, t_env *env)
 	return (1);
 }
 
-void plus_SHLVL(char **oenv)
+void	plus_SHLVL(char **oenv)
 {
-	int i;
-	int j;
-	int number;
+	int	i;
+	int	j;
+	int	number;
 
 	i = 0;
 	j = 0;
-	while(oenv[i])
+	while (oenv[i])
 	{
-		if(!ft_strncmp(oenv[i], "SHLVL", 5))
+		if (!ft_strncmp(oenv[i], "SHLVL", 5))
 		{
 			while (oenv[i][j])
 			{
-				if(oenv[i][j] == '=')
+				if (oenv[i][j] == '=')
 					break ;
 				j++;
 			}
@@ -89,13 +89,13 @@ void plus_SHLVL(char **oenv)
 		i++;
 	}
 	number = ft_atoi(&(oenv[i][j + 1])) + 1;
-	oenv[i] = ft_strjoin("SHLVL=", ft_itoa(number)); 
+	oenv[i] = ft_strjoin("SHLVL=", ft_itoa(number));
 }
 
-void check_minishel(char *name, char **oenv, t_cmd *cmd)
+void	check_minishel(char *name, char **oenv, t_cmd *cmd)
 {
-	int last;
-	int i;
+	int	last;
+	int	i;
 
 	(void)cmd;
 	i = 0;

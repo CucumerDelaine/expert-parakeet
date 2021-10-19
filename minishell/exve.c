@@ -26,10 +26,10 @@ int	path(char *name_programm)
 	return (0);
 }
 
-void call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
+void	call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 {
-	char *name_program;
-	char **flags;
+	char	*name_program;
+	char	**flags;
 
 	if (path(cmd->cmd))
 		name_program = ft_strdup(cmd->cmd);
@@ -42,11 +42,10 @@ void call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 	exit (127);
 }
 
-
-int comand_exve(t_cmd *cmd, t_env *env, char **oenv)
+int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 {
-	int pid;
-	int err;
+	int	pid;
+	int	err;
 
 	err = 0;
 	if (!path(cmd->cmd) && check_path(cmd, env))
@@ -60,5 +59,5 @@ int comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 	}
 	waitpid(pid, &err, WUNTRACED | WCONTINUED);
 	g_status_error = WEXITSTATUS(err);
-	return(g_status_error);
+	return (g_status_error);
 }
