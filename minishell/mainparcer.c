@@ -77,6 +77,7 @@ char *ft_quotes_one_two(char *str, int *i)
 	*i -=  1;
 	return (str);
 }
+
 char *ft_quotes_one(char *str, int *i)
 {
 	int j = *i;
@@ -246,6 +247,7 @@ char *ft_other_dollar(char *str, int *i)
 	char *tmp2;
 	char *tmp3;
 
+	(*i)++;
 	if (str[*i] == '$')
 	{
 		tmp = ft_substr(str,0 ,*i - 1);
@@ -475,6 +477,8 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env)
 	flags = NULL;
 	while (ft_is_space(str[i]))
 		i++;
+	if (str[i] == '\0')
+		return (1);
 	while (str[i] != '\0')
 	{
 		if (!service_char(str[i])) //команда
@@ -628,7 +632,8 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 		// сделать обработку когда одни пробелы,
 		if (str == NULL)
 			return (0);
-		postparser(str, new, cmd, env);
+		if (postparser(str, new, cmd, env))
+			return (0);
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
 		ft_free_cmd(cmd, str);
