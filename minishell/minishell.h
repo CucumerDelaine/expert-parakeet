@@ -108,4 +108,6 @@ int		rl_on_new_line(void);
 void	dl_redisplay(void);
 void	rl_replace_line(const char *buffer, int val);
 
+void	back_d_red(t_cmd *cmd);
+
 #endif
