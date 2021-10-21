@@ -19,6 +19,13 @@ int	ft_error(char *str)
 	exit (1);
 }
 
+int service_char_with(char s)
+{
+	if (s == '>' || s == '<' || s == '|' || s == '\0' || ft_is_space(s) || s == '\'' || s == '\"')
+		return (1);
+	return (0);
+}
+
 int	service_char(char s)
 {
 	if (s == '>' || s == '<' || s == '|' || s == '\0' || ft_is_space(s))

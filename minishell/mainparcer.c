@@ -1,45 +1,21 @@
 #include "minishell.h"
 
-char    *ft_quotes_one(char *str, int *i)
+int ft_search_sumb(char *tmp2)
 {
-	int     j = *i;
-	char    *tmp;
-	char    *tmp2;
-	char    *tmp3;
-	char    *freez;
-	while (str[++(*i)])
-	{
-		if (str[(*i)] == '\'')
-			break;
-	}
-	tmp = ft_substr(str, 0, j);
-	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
-	tmp3 = strdup(str + *i + 1);
-	freez = str;
-	str = ft_strjoin(tmp, tmp2);
-	*i = ft_strlen(str) - 1;
-	free(freez);
-	freez = str;
-	str = ft_strjoin(str, tmp3);
-	free(freez);
-	freez = NULL;
-	free(tmp);
-	tmp = NULL;
-	free(tmp2);
-	tmp2 = NULL;
-	free(tmp3);
-	tmp3 = NULL;
-	return (str);
+	if (ft_strchr(tmp2, '<') || ft_strchr(tmp2, '>') || ft_strchr(tmp2, '|'))
+		return (1);
+	else
+		return (0);
 }
 
-char    *ft_quotes_two(char *str, int *i, char **env)
+char *ft_quotes_two_two(char *str, int *i, char **env)
 {
-	int     j = *i;
-	char    *tmp;
-	char    *tmp2;
-	char    *tmp3;
-	char    *freez;
+	int j = *i;
+	char *tmp;
+	char *tmp2;
+	char *tmp3;
 
+	char *freez;
 	(*i)++;
 	while (str[*i])
 	{
@@ -57,6 +33,128 @@ char    *ft_quotes_two(char *str, int *i, char **env)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
 	tmp3 = ft_strdup(str + *i + 1);
+	// freez = str;
+	str = ft_strjoin(tmp, tmp2);
+	// free(freez);
+	// freez = NULL;
+	*i -= 1;
+	str = ft_strjoin(str, tmp3);
+	if (ft_strlen(tmp) == 0 && ft_strlen(tmp2) == 0)
+		return (NULL);
+	free(tmp);
+	tmp = NULL;
+	free(tmp2);
+	tmp2 = NULL;
+	return (str);
+}
+
+char *ft_quotes_one_two(char *str, int *i)
+{
+	int j = *i;
+	char *tmp = NULL;
+	char *tmp2 = NULL;
+	char *tmp3 = NULL;
+	char *freez;
+
+	while (str[++(*i)])
+	{
+		if (str[(*i)] == '\'')
+			break;
+	}
+	tmp = ft_substr(str, 0, j);
+	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
+	tmp3 = strdup(str + *i + 1);
+	str = ft_strjoin(tmp, tmp2);
+	freez = str;
+	free(freez);
+	str = ft_strjoin(str, tmp3);
+	free(tmp);
+	tmp = NULL;
+	free(tmp2);
+	tmp2 = NULL;
+	free(tmp3);
+	tmp3 = NULL;
+	*i -=  1;
+	return (str);
+}
+char *ft_quotes_one(char *str, int *i)
+{
+	int j = *i;
+	char *tmp = NULL;
+	char *tmp2 = NULL;
+	char *tmp3 = NULL;
+	char *freez;
+
+	while (str[++(*i)])
+	{
+		if (str[(*i)] == '\'')
+			break;
+	}
+	tmp = ft_substr(str, 0, j);
+	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
+	tmp3 = strdup(str + *i + 1);
+	if (ft_search_sumb(tmp2))
+	{
+		free(tmp);
+		tmp = NULL;
+		free(tmp2);
+		tmp2 = NULL;
+		free(tmp3);
+		tmp3 = NULL;
+		return(str);
+	}
+	str = ft_strjoin(tmp, tmp2);
+	*i = ft_strlen(str) - 1;
+	freez = str;
+	free(freez);
+	// freez = str;
+	str = ft_strjoin(str, tmp3);
+	// free(freez);
+	// freez = NULL;
+	free(tmp);
+	tmp = NULL;
+	free(tmp2);
+	tmp2 = NULL;
+	free(tmp3);
+	tmp3 = NULL;
+	return (str);
+}
+
+char *ft_quotes_two(char *str, int *i, char **env)
+{
+	int j = *i;
+	char *tmp;
+	char *tmp2;
+	char *tmp3;
+
+	char *freez;
+	(*i)++;
+	while (str[*i])
+	{
+		if (str[(*i)] == '\"')
+			break;
+		if (str[*i] == '$')
+		{
+			// tmp = str;
+			str = ft_dollar(str, i, env);
+			// free(tmp);
+			// tmp = NULL;
+		}
+		(*i)++;
+	}
+	tmp = ft_substr(str, 0, j);
+	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
+	tmp3 = ft_strdup(str + *i + 1);
+	if (ft_search_sumb(tmp2))
+	{
+		free(tmp);
+		tmp = NULL;
+		free(tmp2);
+		tmp2 = NULL;
+		free(tmp3);
+		tmp3 = NULL;
+		return(str);
+	}
 	freez = str;
 	str = ft_strjoin(tmp, tmp2);
 	free(freez);
@@ -77,14 +175,14 @@ char    *ft_quotes_two(char *str, int *i, char **env)
 	return (str);
 }
 
-char    *ft_dollar(char *str, int *i, char **env)
+char *ft_dollar(char *str, int *i, char **env)
 {
-	int     j = *i;
-	char    *tmp = NULL;
-	char    *tmp2 = NULL;
-	char    *tmp3 = NULL;
-	char    *freez = NULL;
-	int     q;
+	int j = *i;
+	char *tmp = NULL;
+	char *tmp2 = NULL;
+	char *tmp3 = NULL;
+	char *freez = NULL;
+	int q;
 
 	q = 0;
 	if (str[*i + 1] == '$' || str[*i + 1] == '?' || str[*i + 1]
@@ -102,9 +200,9 @@ char    *ft_dollar(char *str, int *i, char **env)
 	tmp[*i + 1] = '\0';
 	while (env[q])
 	{
-		 tmp2 = ft_strnstr(env[q], tmp, ft_strlen(tmp));
-		 if (tmp2)
-			 break;
+		tmp2 = ft_strnstr(env[q], tmp, ft_strlen(tmp));
+		if (tmp2)
+			break;
 		q++;
 	}
 	if (tmp2)
@@ -142,11 +240,11 @@ char    *ft_dollar(char *str, int *i, char **env)
 	return (str);
 }
 
-char    *ft_other_dollar(char *str, int *i)
+char *ft_other_dollar(char *str, int *i)
 {
-	char    *tmp;
-	char    *tmp2;
-	char    *tmp3;
+	char *tmp;
+	char *tmp2;
+	char *tmp3;
 
 	if (str[*i] == '$')
 	{
@@ -155,7 +253,7 @@ char    *ft_other_dollar(char *str, int *i)
 		tmp3 = ft_strdup(str + *i + 1);
 		str = ft_strjoin(tmp, tmp2);
 		str = ft_strjoin(str, tmp3);
-//        printf("%s\n", str);
+		//		printf("%s\n", str);
 	}
 	else if (str[*i] == '?')
 	{
@@ -165,18 +263,18 @@ char    *ft_other_dollar(char *str, int *i)
 		str = ft_strjoin(tmp, tmp2);
 		str = ft_strjoin(str, tmp3);
 	}
-//    else if (str[*i] == '\0' || ft_is_space(str[*i]))
-//    {
-//        tmp = ft_substr(str,0 ,*i - 1);
-//        tmp2 = ft_strdup("$");
-//        tmp3 = ft_strdup(str + *i);
-//        str = ft_strjoin(tmp, tmp2);
-//        str = ft_strjoin(str, tmp3);
-//    }
-	return (str);
+	//	else if (str[*i] == '\0' || ft_is_space(str[*i]))
+	//	{
+	//		tmp = ft_substr(str,0 ,*i - 1);
+	//		tmp2 = ft_strdup("$");
+	//		tmp3 = ft_strdup(str + *i);
+	//		str = ft_strjoin(tmp, tmp2);
+	//		str = ft_strjoin(str, tmp3);
+	//	}
+	return(str);
 }
 
-void    parser(char **str, char **env)
+void parser(char **str, char **env)
 {
 	int i;
 
@@ -193,15 +291,16 @@ void    parser(char **str, char **env)
 		if ((*str) == NULL)
 			return ;
 	}
+	// printf("str = %s\n", *str);
 }
 
-void	ft_redir(t_cmd **cmd, char *str, int *i, int *red)
+void ft_redir(t_cmd **cmd, char *str, int *i, int *red)
 {
-	int		j;
-	char	*file;
-	int		fd_next;
-	int		fd_back;
-	
+	int j;
+	char *file;
+	int fd_next;
+	int fd_back;
+
 	if (str[*i] == '>')
 	{
 		if (str[*i + 1] == '>')
@@ -293,13 +392,13 @@ void	ft_redir(t_cmd **cmd, char *str, int *i, int *red)
 			free(file);
 		}
 	}
-//    printf("STROKA = %s", str);
+	//	printf("STROKA = %s", str);
 }
 
 void	ft_free_cmd(t_cmd **new, char *str)
 {
-	int		i;
-	t_cmd	*tmp;
+	int i;
+	t_cmd *tmp;
 
 	if (!new)
 		return;
@@ -355,18 +454,19 @@ void	ft_free_cmd(t_cmd **new, char *str)
 		// free(*new);
 		// *new = NULL;
 	}
-	
-	
+
+
 }
 
-int	postparser(char *str, t_cmd  *new, t_cmd **cmd)
+int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env)
 {
-	char	*word;
-	char	*argum;
-	char	*flags;
-	int		red;
-	int		i;
-	int		j;
+	char *word;
+	char *argum;
+	char *flags;
+	int red;
+
+	int i;
+	int j;
 
 	i = 0;
 	red = 0;
@@ -378,8 +478,12 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd)
 	while (str[i] != '\0')
 	{
 		if (!service_char(str[i])) //команда
-		{
+			{
 			j = i;
+			if (str[i] == '\'' && (str[i + 1] == '|' || str[i + 1] == '<' || str[i + 1] == '>'))
+				str = ft_quotes_one_two(str, &i);
+			else if (str[i] == '\"' && (str[i + 1] == '|' || str[i + 1] == '<' || str[i + 1] == '>'))
+				str = ft_quotes_two_two(str, &i, env);
 			while (!service_char(str[i]))
 				i++;
 			word = ft_substr(str, j, i - j);
@@ -387,28 +491,35 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd)
 			while (ft_is_space(str[i]) && str[i] != '\0')
 				i++;
 			while (str[i] == '-' && !service_char(str[i + 1])) // флаги
-			{
+				{
 				j = i;
 				while (!service_char(str[i]))
 					i++;
 				flags = ft_substr(str, j, i - j); // добавление нескольких флагов
 				ft_lstadd_flags(&new, flags);
 				free(flags);
+				flags = NULL;
 				while (ft_is_space(str[i]) && str[i] != '\0')
 					i++;
-			}
+				}
 			while (!service_char(str[i])) // аргументы
-			{
+				{
 				j = i;
-				while (!service_char(str[i]))
+				if (str[i] == '\'' && (str[i + 1] == '|' || str[i + 1] == '<' || str[i + 1] == '>'))
+					str = ft_quotes_one_two(str, &i);
+				else if (str[i] == '\"' && (str[i + 1] == '|' || str[i + 1] == '<' || str[i + 1] == '>'))
+					str = ft_quotes_two_two(str, &i, env);
+				while (!service_char_with(str[i]))
 					i++;
 				argum = ft_substr(str, j, i - j);
 				ft_lstadd_argum(&new, argum);
 				free(argum);
+				argum = NULL;
 				while (ft_is_space(str[i]) && str[i] != '\0')
 					i++;
+				}
 			}
-		}
+		// TODO тут утечка у str
 		else if (str[i] == '|')
 		{
 			i++;
@@ -417,7 +528,7 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd)
 			ft_lstadd_back_cmd(cmd, new);
 			new = NULL;
 		}
-		else if (str[i] == '>' || str[i] == '<')
+		else if ((str[i] == '>' || str[i] == '<'))
 			ft_redir(&new, str, &i, &red);
 		if (str[i] == '\0')
 		{
@@ -427,28 +538,28 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd)
 			word = NULL;
 		}
 		// printf("cmd == %s, flags == %s, argum %s\n", (*cmd)->cmd, (*cmd)->flags[0], (*cmd)->argum[0]);
-
+		// echo qwe '|' qwe
 	}
 	// i = 0;
 	// while ((*cmd)->red_words[i])
 	// {
-		// printf("flags %s\n", (new)->red_words[0]);
-		// printf("flags %s\n", (new)->red_words[1]);
-		// printf("flags %s\n", (*cmd)->red_words[0]);
-		// printf("flags %s\n", (*cmd)->red_words[3]);
+	// printf("flags %s\n", (new)->red_words[0]);
+	// printf("flags %s\n", (new)->red_words[1]);
+	// printf("flags %s\n", (*cmd)->red_words[0]);
+	// printf("flags %s\n", (*cmd)->red_words[3]);
 
-	//     i++;
+	// 	i++;
 	// }
 	// i = 0;
 	// while((*cmd)->argum[i])
 	// {
-	//     printf("argum %s\n", (*cmd)->argum[i]);
-	//     i++;
+	// 	printf("argum %s\n", (*cmd)->argum[i]);
+	// 	i++;
 	// }
 	return (0);
 }
 
-int	preparser(char *str, int *i)
+int preparser(char *str, int *i)
 {
 	while (str[*i])
 	{
@@ -484,14 +595,14 @@ int	preparser(char *str, int *i)
 		}
 		(*i)++;
 	}
-//    printf("str = %s\n", str);
+	//	printf("str = %s\n", str);
 	return 0;
 }
 
-int	ft_minishell(t_env **our_env, char *str, char **env, t_cmd    **cmd)
+int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 {
-	int		i;
-	t_cmd	*new;
+	int i;
+	t_cmd *new;
 
 	i = -1;
 	new = NULL;
@@ -512,11 +623,12 @@ int	ft_minishell(t_env **our_env, char *str, char **env, t_cmd    **cmd)
 			if (preparser(str, &i))
 				return(ft_error("Invalid command\n"));
 		}
-		i = -1;
-		parser(&str, env); // TODO убрать утечки у доллара
+		// i = -1;
+		parser(&str, env); // TODO убрать утечки у доллара и настроить $? $$
+		// сделать обработку когда одни пробелы,
 		if (str == NULL)
 			return (0);
-		postparser(str, new, cmd);
+		postparser(str, new, cmd, env);
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
 		ft_free_cmd(cmd, str);
@@ -541,16 +653,16 @@ void	ft_ctrl_c(int id)
 	}
 }
 
-void	ft_signal_init()
+void ft_signal_init()
 {
-		signal(SIGINT, ft_ctrl_c);
-		signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-int	main(int argc, char **argv, char **env) // сделать выполнение команд c ctrl-C ctrl-D ctrl-
+int main(int argc, char **argv, char **env) // сделать выполнение команд c ctrl-C ctrl-D ctrl-
 {
-	t_cmd    *cmd;
-	t_env    *our_env;
+	t_cmd	*cmd;
+	t_env	*our_env;
 
 	(void ) argc;
 	(void ) argv;
@@ -560,7 +672,7 @@ int	main(int argc, char **argv, char **env) // сделать выполнени
 	{
 		cmd = NULL;
 		ft_signal_init();
-		if (ft_minishell(&our_env, readline("<minishell>"), env, &cmd))
+		if (ft_minishell(&our_env, readline("minishell:> "), env, &cmd))
 			return(1);
 	}
 	return (0);
