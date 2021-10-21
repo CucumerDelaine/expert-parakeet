@@ -52,21 +52,12 @@ int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 {
 	t_cmd	*cmd;
 	t_env	*env;
-	int		d;
 
 	cmd = *cmd_origin;
 	env = *env_origin;
-	d = dup(0);
-	if (cmd->fd_in != 0)
-		dup2(cmd->fd_in, STDIN_FILENO);
 	if ((ft_lstsize1(cmd) - 1) > 0)
 		pipe_logic(cmd, env, oenv, ft_lstsize1(cmd) - 1);
 	else
 		find_comand(cmd, env, oenv);
-	if (cmd->fd_in != 0)
-	{
-		close(cmd->fd_in);
-		dup2(d, STDIN_FILENO);
-	}
 	return (0);
 }

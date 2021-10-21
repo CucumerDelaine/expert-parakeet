@@ -75,6 +75,7 @@ void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 void	ft_free_cmd(t_cmd **new, char *str);
 void	init_count(int *i, int *j);
+void	norma2(t_cmd *cmd, int d);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
