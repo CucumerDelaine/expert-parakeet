@@ -55,6 +55,8 @@ int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 		exit (1);
 	if (pid == 0)
 	{
+		if (cmd->fd_out != 1)
+			dup2(cmd->fd_out, STDOUT_FILENO);
 		call_execve_proc(cmd, env, oenv);
 	}
 	waitpid(pid, &err, WUNTRACED | WCONTINUED);

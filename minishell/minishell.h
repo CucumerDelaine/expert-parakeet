@@ -1,5 +1,5 @@
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <term.h>
@@ -15,20 +15,20 @@ typedef struct s_env {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
-} 		t_env;
+}				t_env;
 
 typedef struct s_cmd {
-	char		*cmd;
-	char		**argum;
-	char		**flags;
-	int			flag_num;
-	int 		arg_num;
-	int			active;
-	int 		fd_in;
-	int 		fd_out;
-	int			back_d_red;
-	char		**red_words;
-	struct s_cmd *next;
+	char			*cmd;
+	char			**argum;
+	char			**flags;
+	int				flag_num;
+	int				arg_num;
+	int				active;
+	int				fd_in;
+	int				fd_out;
+	int				back_d_red;
+	char			**red_words;
+	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_pipex
@@ -40,8 +40,7 @@ typedef struct s_pipex
 	int		i;
 }	t_pipex;
 
-int g_status_error;
-
+int	g_status_error;
 
 char	*ft_quotes_one(char *str, int *i);
 char	*ft_dollar(char *str, int *i, char **env);
@@ -65,7 +64,6 @@ char	*print_exit(t_pipex *str, int i);
 char	*get_addres(char **oenvp, t_env *envp, char *cmd_string);
 void	call_execve_proc(t_cmd *cmd, t_env *env, char **oenv);
 int		comand_exve(t_cmd *cmd, t_env *env, char **oenv);
-// int		search_name_comand(t_cmd *cmd, t_env *env, char **oenv);
 int		find_comand(t_cmd *cmd, t_env *env, char **oenv);
 int		logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv);
 int		path(char *name_programm);
@@ -76,15 +74,23 @@ int		check_path(t_cmd *cmd, t_env *env);
 void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 void	ft_free_cmd(t_cmd **new, char *str);
+void	init_count(int *i, int *j);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
-void 	cmd_proc(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd);
-void 	cmd_proc_last(t_cmd *cmd, t_env *env, char **oenv, int i, int *ft, int *fd);
+void	cmd_proc(int i, int *ft, int *fd);
+void	cmd_proc_last(int i, int *ft, int *fd);
 void	cmd_proc_two(t_cmd *cmd, t_env *env, char **oenv, int argc);
 void	cmd_proc_many(t_cmd *cmd, t_env *env, char **oenv, int argc);
 void	proc_close(t_cmd *cmd, int flag, int *ft, int *fd);
 void	errr1(pid_t pid, int argc);
+void	one_pipe_1(t_cmd *cmd, t_env *env, char **oenv, int *fd);
+void	one_pipe_2(t_cmd *cmd, t_env *env, char **oenv, int *fd);
+void	cmd_pipex(t_cmd *cmd, int *ft, int *fd, int flag);
+int		switch_flag(t_cmd *cmd, int flag);
+void	ebuch_norma(int i, int argc, int *ft, int *fd);
+void	find_comand2(t_cmd *cmd, t_env *env, char **oenv);
+void	init_flag_i(int *flag, int *i);
 
 void	ft_delete_list_env(char *key, t_env **env);
 t_env	*ft_find_list_env(char *find, t_env **env);

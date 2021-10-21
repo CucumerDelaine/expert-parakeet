@@ -20,14 +20,14 @@ int	ft_atoi(const char *nptr)
 	sign = 1;
 	num = 0;
 	while (*nptr == ' ' || *nptr == '\v' || *nptr == '\t' \
-		|| *nptr =='\n' || *nptr == '\r' || *nptr == '\f')
+		|| *nptr == '\n' || *nptr == '\r' || *nptr == '\f')
 		nptr++;
 	if (*nptr == '-')
 	{
 		sign *= -1;
 		nptr++;
 	}
-	else if (*nptr =='+')
+	else if (*nptr == '+')
 		nptr++;
 	while (*nptr >= '0' && *nptr <= '9')
 	{

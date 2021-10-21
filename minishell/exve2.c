@@ -12,22 +12,26 @@
 
 #include "minishell.h"
 
+void	init_count(int *i, int *j)
+{
+	*i = 0;
+	*j = 0;
+}
+
 char	**get_flag(t_cmd *cmd)
 {
 	int		i;
 	int		j;
 	char	**flags;
 
-	i = 0;
-	j = 0;
+	init_count(&i, &j);
 	while (cmd->flags[i])
 		i++;
 	while (cmd->argum[j++])
 		i++;
 	flags = (char **)malloc(sizeof(char *) * (i + 2));
 	flags[i + 1] = NULL;
-	i = 0;
-	j = 0;
+	init_count(&i, &j);
 	flags[0] = ft_strdup(cmd->cmd);
 	while (cmd->flags[i])
 	{

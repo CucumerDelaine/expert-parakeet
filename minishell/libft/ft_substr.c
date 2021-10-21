@@ -36,7 +36,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		low = (char *)malloc(sizeof(char) * 1);
 		low[0] = '\0';
 		return (low);
-		
 	}
 	l = ft_len(s, start, len);
 	low = (char *)malloc(sizeof(char) * l + 1);

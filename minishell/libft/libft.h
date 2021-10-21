@@ -28,7 +28,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int num);
 int		ft_isprint(int ch);
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n);
-void	*ft_memchr (const void *arr, int c, size_t n);
+void	*ft_memchr(const void *arr, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
@@ -52,7 +52,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-char 	*ft_quotes_one(char *str, int *i);
+char	*ft_quotes_one(char *str, int *i);
 
 typedef struct s_list
 {

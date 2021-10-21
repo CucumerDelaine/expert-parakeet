@@ -53,7 +53,7 @@ char	*ft_itoa(int n)
 		n /= 10;
 	}
 	temp[i] = n;
-	finish = ((char *)malloc(sizeof(char)* (i + 2)));
+	finish = ((char *)malloc(sizeof(char) * (i + 2)));
 	if (!finish)
 		return (NULL);
 	finish = ft_town(temp, finish, i, num);
