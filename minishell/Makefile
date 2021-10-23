@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c env.c unset.c exit.c pipe2.c pipe3.c exve4.c
+SRC = mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c env.c unset.c exit.c pipe2.c pipe3.c exve4.c back_d_red.c
 
 SRCL = ./libft
 
@@ -10,7 +10,7 @@ LIB		= $(SRCL)/libft.a
 
 HEAD = minishell.h
 
-# CFLAG	= -Wall -Wextra -Werror -g
+CFLAG	= -Wall -Wextra -Werror -g
 
 RM		= rm -f
 
@@ -21,7 +21,7 @@ all: $(NAME)
 
 $(NAME):		$(OBJ) $(HEAD)
 				$(MAKE) -C $(SRCL)
-				gcc $(CFLAG) $(OBJ) $(LIB) -lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
+				gcc $(CFLAG) $(OBJ) $(LIB) -lreadline -ltermcap -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
 
 clean:	
 		$(MAKE) clean -C $(SRCL)

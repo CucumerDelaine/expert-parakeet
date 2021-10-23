@@ -70,7 +70,7 @@ char	*print_exit(t_pipex *str, int i)
 	exit (127);
 }
 
-char	*get_addres(char **oenvp, t_env *envp, char *cmd_string)
+char	*get_addres(char **oenvp, char *cmd_string)
 {
 	t_pipex	str;
 

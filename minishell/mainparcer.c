@@ -27,7 +27,7 @@ char *ft_quotes_two_two(char *str, int *i, char **env)
 	char *tmp2;
 	char *tmp3;
 
-	char *freez;
+	// char *freez;
 	(*i)++;
 	while (str[*i])
 	{

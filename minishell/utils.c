@@ -19,9 +19,10 @@ int	ft_error(char *str)
 	exit (1);
 }
 
-int service_char_with(char s)
+int	service_char_with(char s)
 {
-	if (s == '>' || s == '<' || s == '|' || s == '\0' || ft_is_space(s) || s == '\'' || s == '\"')
+	if (s == '>' || s == '<' || s == '|' || s == '\0' || ft_is_space(s) \
+	|| s == '\'' || s == '\"')
 		return (1);
 	return (0);
 }
@@ -42,6 +43,8 @@ int	ft_strncmp_nr(const char *s1, const char *s2, int n)
 	i = 0;
 	tmp1 = (char *)s1;
 	tmp2 = (char *)s2;
+	if (n == 0)
+		return (1);
 	while (i < n)
 	{
 		if (tmp1[i] != tmp2[i] && tmp1[i] - tmp2[i] != 32
