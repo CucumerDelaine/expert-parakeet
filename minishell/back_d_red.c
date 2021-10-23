@@ -22,56 +22,19 @@ int	strcount(t_cmd *cmd)
 	return (i);
 }
 
-char	**init_str(char **str2)
+void	ctrl_wd(int signum)
 {
-	int	i;
-
-	i = 0;
-	str2 = malloc(sizeof(char *) * 100);
-	while (i < 100)
-	{
-		str2[i] = NULL;
-		i++;
-	}
-	return (str2);
+	(void)signum;
+	g_status_error = 130;
 }
 
-void	term_str(char **str2)
+void	back_d_red_child(t_cmd *cmd, int *fd, int count)
 {
-	int	i;
-
-	i = 0;
-	while (str2[i])
-	{
-		if (str2[i])
-			free(str2[i]);
-		i++;
-	}
-	free(str2);
-}
-
-void	print_and_term(char **str2)
-{
-	int	i;
-
-	i = 0;
-	while (str2[i])
-		printf("%s\n", str2[i++]);
-	term_str(str2);
-}
-
-void	back_d_red(t_cmd *cmd)
-{
-	char	*str;
 	int		i;
-	int		count;
-	int		j;
-	char	**str2;
+	char	*str;
 
-	str2 = NULL;
-	init_count(&i, &j);
-	str2 = init_str(str2);
-	count = strcount(cmd);
+	i = 0;
+	close(fd[0]);
 	while (i < count)
 	{
 		if (i < count)
@@ -80,11 +43,43 @@ void	back_d_red(t_cmd *cmd)
 		{
 			if (!ft_strncmp_nr(str, cmd->red_words[i], ft_strlen(str)))
 				i++;
-			else if (i == count - 1 && !ft_strncmp_nr("cat", cmd->cmd, 3) \
-			&& cmd->argum[0] == NULL)
-				str2[j++] = ft_strdup(str);
+			else if (i == count - 1)
+			{
+				ft_putstr_fd(str, fd[1]);
+				write(fd[1], "\n", 1);
+			}
+			// if (g_status_error == 130)
+			// 	exit(130);
 		}
 		free(str);
 	}
-	print_and_term(str2);
+	close(fd[1]);
+	// if (g_status_error == 130)
+	// 	exit(130);
+	exit(0);
+}
+
+void	back_d_red(t_cmd *cmd)
+{
+	int		fd[2];
+	pid_t	pid;
+
+	pipe(fd);
+	pid = fork();
+	// signal(SIGINT, ctrl_wd);
+	// signal(SIGQUIT, SIG_IGN);
+	if (!pid)
+		back_d_red_child(cmd, fd, strcount(cmd));
+	errr1(pid, 1);
+	if (g_status_error == 130)
+	{
+		close(fd[0]);
+		close(fd[1]);
+	}
+	else
+	{
+		close(fd[1]);
+		cmd->fd_red = fd[0];
+	}
+	signal(SIGINT, ft_ctrl_c);
 }

@@ -14,30 +14,22 @@
 
 int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 {
-	// if (!ft_strncmp_nr("echo", cmd->cmd, ft_strlen(cmd->cmd)))
-	// 	g_status_error = comand_echo(cmd);
+	if (!ft_strncmp_nr("echo", cmd->cmd, ft_strlen(cmd->cmd)))
+		g_status_error = comand_echo(cmd);
 	// else if (!ft_strncmp_nr("cd", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_cd(cmd, env);
 	// else if (!ft_strncmp_nr("pwd", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_pwd(cmd, envp, o_en);
 	// else if (!ft_strncmp_nr("export", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_export(cmd, env);
-	if (!ft_strncmp_nr("unset", cmd->cmd, ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp_nr("unset", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_unset(cmd, env);
 	else if (!ft_strncmp_nr("env", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_env(cmd, env);
 	else if (!ft_strncmp_nr("exit", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_exit(cmd);
 	else
-	{
-		if (cmd->back_d_red)
-		{
-			back_d_red(cmd);
-			if (!ft_strncmp_nr("cat", cmd->cmd, 3) && cmd->argum[0] == NULL)
-				return (g_status_error);
-		}
 		g_status_error = comand_exve(cmd, env, oenv);
-	}
 	return (g_status_error);
 }
 
@@ -63,6 +55,8 @@ int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 
 	cmd = *cmd_origin;
 	env = *env_origin;
+	if (cmd->back_d_red)
+		back_d_red(cmd);
 	if ((ft_lstsize1(cmd) - 1) > 0)
 		pipe_logic(cmd, env, oenv, ft_lstsize1(cmd) - 1);
 	else

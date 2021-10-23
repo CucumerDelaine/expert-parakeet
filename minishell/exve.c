@@ -45,15 +45,16 @@ void	call_execve_proc(t_cmd *cmd, char **oenv)
 int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 {
 	int	pid;
-	int	err;
 	int	d;
 
-	err = 0;
 	if (!path(cmd->cmd) && check_path(cmd, env))
 		return (g_status_error);
 	d = dup(0);
 	if (cmd->fd_in != 0)
 		dup2(cmd->fd_in, STDIN_FILENO);
+	else if (cmd->fd_red != 0)
+		dup2(cmd->fd_red, STDIN_FILENO);
+	ft_siginit_cat();
 	pid = fork();
 	if (pid < 0)
 		exit (1);
@@ -63,17 +64,19 @@ int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 			dup2(cmd->fd_out, STDOUT_FILENO);
 		call_execve_proc(cmd, oenv);
 	}
-	waitpid(pid, &err, WUNTRACED | WCONTINUED);
-	g_status_error = WEXITSTATUS(err);
+	errr1(pid, 1);
 	norma2(cmd, d);
 	return (g_status_error);
 }
 
 void	norma2(t_cmd *cmd, int d)
 {
-	if (cmd->fd_in != 0)
+	if (cmd->fd_in != 0 || cmd->fd_red != 0)
 	{
-		close(cmd->fd_in);
+		if (cmd->fd_in != 0)
+			close(cmd->fd_in);
+		else if (cmd->fd_red != 0)
+			close(cmd->fd_red);
 		dup2(d, STDIN_FILENO);
 	}
 	if (cmd->fd_out != 1)

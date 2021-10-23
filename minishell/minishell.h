@@ -27,6 +27,7 @@ typedef struct s_cmd {
 	int				fd_in;
 	int				fd_out;
 	int				back_d_red;
+	int				fd_red;
 	char			**red_words;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -77,6 +78,7 @@ void	ft_free_cmd(t_cmd **new, char *str);
 void	init_count(int *i, int *j);
 void	norma2(t_cmd *cmd, int d);
 int		service_char_with(char s);
+void	ft_ctrl_c(int id);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
@@ -109,5 +111,6 @@ void	dl_redisplay(void);
 void	rl_replace_line(const char *buffer, int val);
 
 void	back_d_red(t_cmd *cmd);
+void	ft_siginit_cat(void);
 
 #endif
