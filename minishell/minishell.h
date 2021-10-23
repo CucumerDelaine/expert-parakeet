@@ -42,7 +42,7 @@ typedef struct s_pipex
 
 int	g_status_error;
 
-char	*ft_quotes_one(char *str, int *i);
+char	*ft_quotes_one(char *str, int *i, t_cmd *cmd, t_env *our_env, char **env);
 char	*ft_dollar(char *str, int *i, char **env);
 int		ft_is_space(char c);
 char	*ft_other_dollar(char *str, int *i);

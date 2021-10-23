@@ -1,5 +1,17 @@
 #include "minishell.h"
+int ft_shr_print(char *str)
+{
+	int i;
 
+	i = 0;
+	while(str[i])
+	{
+		if (ft_isprint(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 int ft_search_sumb(char *tmp2)
 {
 	if (ft_strchr(tmp2, '<') || ft_strchr(tmp2, '>') || ft_strchr(tmp2, '|'))
@@ -78,7 +90,7 @@ char *ft_quotes_one_two(char *str, int *i)
 	return (str);
 }
 
-char *ft_quotes_one(char *str, int *i)
+char *ft_quotes_one(char *str, int *i, t_cmd *cmd, t_env *our_env, char **env)
 {
 	int j = *i;
 	char *tmp = NULL;
@@ -94,6 +106,14 @@ char *ft_quotes_one(char *str, int *i)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
 	tmp3 = strdup(str + *i + 1);
+	if (!ft_shr_print(tmp) && ft_strchr(tmp2, ' '))
+	{
+		// if (tmp3[0] == '\'')
+			// ft_quotes_one
+		cmd = ft_lstnew_cmd(tmp2);
+		logic(&cmd, &our_env, env);
+		return(0);
+	}
 	if (ft_search_sumb(tmp2))
 	{
 		free(tmp);
@@ -121,7 +141,7 @@ char *ft_quotes_one(char *str, int *i)
 	return (str);
 }
 
-char *ft_quotes_two(char *str, int *i, char **env)
+char *ft_quotes_two(char *str, int *i, t_cmd *cmd, t_env *our_env, char **env)
 {
 	int j = *i;
 	char *tmp;
@@ -146,6 +166,12 @@ char *ft_quotes_two(char *str, int *i, char **env)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str,j + 1 , *i - j - 1);
 	tmp3 = ft_strdup(str + *i + 1);
+	if (!ft_shr_print(tmp) && ft_strchr(tmp2, ' '))
+	{
+		cmd = ft_lstnew_cmd(tmp2);
+		logic(&cmd, &our_env, env);
+		return(0);
+	}
 	if (ft_search_sumb(tmp2))
 	{
 		free(tmp);
@@ -161,10 +187,10 @@ char *ft_quotes_two(char *str, int *i, char **env)
 	free(freez);
 	freez = NULL;
 	*i = ft_strlen(str) - 1;
-	freez = str;
+	// freez = str;
 	str = ft_strjoin(str, tmp3);
-	free(freez);
-	freez = NULL;
+	// free(freez);
+	// freez = NULL;
 	if (ft_strlen(tmp) == 0 && ft_strlen(tmp2) == 0)
 		return (NULL);
 	free(freez);
@@ -233,10 +259,10 @@ char *ft_dollar(char *str, int *i, char **env)
 		tmp3 = ft_substr(str, *i, ft_strlen(str) - *i - 1);
 		if (ft_strlen(tmp) == 0 && ft_strlen(tmp3) == 0)
 			return(NULL);
-		freez = str;
+		// freez = str;
 		str = ft_strjoin(tmp, tmp3);
-		free(freez);
-		freez = NULL;
+		// free(freez);
+		// freez = NULL;
 	}
 	return (str);
 }
@@ -276,25 +302,25 @@ char *ft_other_dollar(char *str, int *i)
 	return(str);
 }
 
-void parser(char **str, char **env)
-{
-	int i;
+// int parser(char **str, char **env, t_cmd  *new, t_cmd **cmd)
+// {
+// 	int i;
 
-	i = 0;
-	while((*str)[i])
-	{
-		if ((*str)[i] == '\'')
-			(*str) = ft_quotes_one((*str), &i);
-		else if ((*str)[i] == '$')
-			(*str) = ft_dollar((*str), &i, env);
-		else if ((*str)[i] == '\"')
-			(*str) = ft_quotes_two((*str), &i, env);
-		i++;
-		if ((*str) == NULL)
-			return ;
-	}
-	// printf("str = %s\n", *str);
-}
+// 	i = 0;
+// 	while((*str)[i])
+// 	{
+// 		if ((*str)[i] == '\'')
+// 			(*str) = ft_quotes_one((*str), &i, cmd, our_env, *env);
+// 		else if ((*str)[i] == '$')
+// 			(*str) = ft_dollar((*str), &i, env);
+// 		else if ((*str)[i] == '\"')
+// 			(*str) = ft_quotes_two((*str), &i, env);
+// 		i++;
+// 		if ((*str) == NULL)
+// 			return (1);
+// 	}
+// 	// printf("str = %s\n", *str);
+// }
 
 void ft_redir(t_cmd **cmd, char *str, int *i, int *red)
 {
@@ -460,7 +486,7 @@ void	ft_free_cmd(t_cmd **new, char *str)
 
 }
 
-int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env)
+int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env, t_env **our_env)
 {
 	char *word;
 	char *argum;
@@ -475,14 +501,29 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env)
 	word = NULL;
 	argum = NULL;
 	flags = NULL;
-	while (ft_is_space(str[i]))
-		i++;
 	if (str[i] == '\0')
 		return (1);
+	str = ft_strtrim(str, "\t\n\v\f\r ");
+	// printf("str = |%s|\n", str);
+	while(str[i])
+	{
+		if (str[i] == '\'')
+			str = ft_quotes_one(str, &i, *cmd, *our_env, env);
+		else if (str[i] == '$')
+			str = ft_dollar(str, &i, env);
+		else if (str[i] == '\"')
+			str = ft_quotes_two(str, &i, *cmd, *our_env, env);
+		i++;
+		if (str == NULL)
+			return (1);
+	}
+	i = 0;
 	while (str[i] != '\0')
 	{
+		while (ft_is_space(str[i]))
+			i++;
 		if (!service_char(str[i])) //команда
-			{
+		{
 			j = i;
 			if (str[i] == '\'' && (str[i + 1] == '|' || str[i + 1] == '<' || str[i + 1] == '>'))
 				str = ft_quotes_one_two(str, &i);
@@ -533,7 +574,11 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env)
 			new = NULL;
 		}
 		else if ((str[i] == '>' || str[i] == '<'))
+		{
+			if (new == NULL)
+				new = ft_lstnew_cmd(NULL);
 			ft_redir(&new, str, &i, &red);
+		}
 		if (str[i] == '\0')
 		{
 			ft_lstadd_back_cmd(cmd, new);
@@ -628,12 +673,12 @@ int ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 				return(ft_error("Invalid command\n"));
 		}
 		// i = -1;
-		parser(&str, env); // TODO убрать утечки у доллара и настроить $? $$
-		// сделать обработку когда одни пробелы,
-		if (str == NULL)
+		// if (parser(&str, env, *cmd, &new)) // TODO убрать утечки у доллара
+		// 	return (0);
+		if (postparser(str, new, cmd, env, our_env))
 			return (0);
-		if (postparser(str, new, cmd, env))
-			return (0);
+		// "daw dwa dwa " << 1 не работает
+		// "dwa dwa qweq eq"' qwe q we q weqwe' не работает
 		logic(cmd, our_env, env);
 		// printf ("str = |%s|\n", str);
 		ft_free_cmd(cmd, str);
