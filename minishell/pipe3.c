@@ -13,7 +13,7 @@ void	one_pipe_2(t_cmd *cmd, t_env *env, char **oenv, int *fd)
 {
 	dup2(fd[0], 0);
 	close(fd[0]);
-	find_comand(cmd->next, env, oenv);
+	find_comand(cmd, env, oenv);
 	exit(0);
 }
 

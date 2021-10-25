@@ -22,7 +22,7 @@ typedef struct s_iter {
 	int		j;
 	char	*tmp;
 	int		full;
-} 				t_iter;
+}				t_iter;
 
 typedef struct s_cmd {
 	char			*cmd;
@@ -37,6 +37,7 @@ typedef struct s_cmd {
 	int				fd_red;
 	char			**red_words;
 	struct s_cmd	*next;
+	struct s_cmd	*back;
 }	t_cmd;
 
 typedef struct s_pipex
@@ -83,7 +84,7 @@ void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 void	ft_free_cmd(t_cmd **new, char *str);
 void	init_count(int *i, int *j);
-void	norma2(t_cmd *cmd, int d);
+void	norma2(t_cmd *cmd);
 int		service_char_with(char s);
 
 // pipe.c
@@ -116,6 +117,8 @@ int		rl_on_new_line(void);
 void	dl_redisplay(void);
 void	rl_replace_line(const char *buffer, int val);
 
-void	back_d_red(t_cmd *cmd);
+int		back_d_red21(t_cmd *cmd_o);
+int		strcount(t_cmd *cmd);
+void	ft_putstr_fd2(char *s, int *fd);
 
 #endif

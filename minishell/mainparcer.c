@@ -579,6 +579,7 @@ int	postparser(char *str, t_cmd  *new, t_cmd **cmd, char **env, t_env **our_env)
 				i++;
 			ft_lstadd_back_cmd(cmd, new);
 			new = NULL;
+			red = 0;
 		}
 		else if ((str[i] == '>' || str[i] == '<'))
 		{

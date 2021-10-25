@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   back_d_red.c                                       :+:      :+:    :+:   */
+/*   back_d_red2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/23 12:19:00 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/10/23 12:19:02 by cdelaine         ###   ########.fr       */
+/*   Created: 2021/10/25 15:07:12 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/10/25 15:07:13 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	strcount(t_cmd *cmd)
+void	cmd_c_fork(int signum)
 {
-	int	i;
-
-	i = 0;
-	while (cmd->red_words[i])
-		i++;
-	return (i);
+	(void)signum;
+	g_status_error = 130;
+	write(1, "\n", 1);
 }
 
-void	ctrl_wd(int signum)
+void static	ctrl_wd(int signum)
 {
 	(void)signum;
 	g_status_error = 130;
 }
 
-void	back_d_red_child(t_cmd *cmd, int *fd, int count)
+void	back_d_red_child2(t_cmd *cmd, int *fd, int count)
 {
 	int		i;
 	char	*str;
@@ -44,44 +41,59 @@ void	back_d_red_child(t_cmd *cmd, int *fd, int count)
 			if (!ft_strncmp_nr(str, cmd->red_words[i], ft_strlen(str)))
 				i++;
 			else if (i == count - 1)
-			{
-				ft_putstr_fd(str, fd[1]);
-				write(fd[1], "\n", 1);
-			}
-			// if (g_status_error == 130)
-			// 	exit(130);
+				ft_putstr_fd2(str, fd);
 		}
 		free(str);
+		if (!str)
+			break ;
 	}
 	close(fd[1]);
-	// if (g_status_error == 130)
-	// 	exit(130);
+	if (g_status_error == 130)
+		exit (130);
 	exit(0);
 }
 
-void	back_d_red(t_cmd *cmd)
+void	back_d_red2(t_cmd *cmd)
 {
 	int		fd[2];
 	pid_t	pid;
+	void	*sgnl;
 
 	pipe(fd);
 	pid = fork();
-	// signal(SIGINT, ctrl_wd);
-	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ctrl_wd);
+	signal(SIGQUIT, SIG_IGN);
+	(sgnl = rl_getc_function);
+	rl_getc_function = getc;
 	if (!pid)
-		back_d_red_child(cmd, fd, strcount(cmd));
+		back_d_red_child2(cmd, fd, strcount(cmd));
 	errr1(pid, 1);
-	// if (g_status_error == 130)
-	// {
-	// 	close(fd[0]);
-	// 	close(fd[1]);
-	// }
-	// else
-	// {
+	if (g_status_error == 130)
+	{
+		close(fd[0]);
+		close(fd[1]);
+	}
+	else
+	{
 		close(fd[1]);
 		cmd->fd_red = fd[0];
-	// }
-	// dup2(fd[0], 0);
-	// close(fd[0]);
-	// signal(SIGINT, ft_ctrl_c);
+	}
+	(rl_getc_function = sgnl);
+	signal(SIGINT, cmd_c_fork);
+}
+
+int	back_d_red21(t_cmd *cmd_o)
+{
+	t_cmd	*cmd;
+
+	cmd = cmd_o;
+	while (cmd)
+	{
+		if (cmd->back_d_red)
+			back_d_red2(cmd);
+		if (g_status_error == 130)
+			return (130);
+		cmd = cmd->next;
+	}
+	return (0);
 }

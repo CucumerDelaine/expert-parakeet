@@ -59,7 +59,7 @@ void	cmd_proc_two(t_cmd *cmd, t_env *env, char **oenv, int argc)
 	{
 		pid = fork();
 		if (!pid)
-			one_pipe_2(cmd, env, oenv, fd);
+			one_pipe_2(cmd->next, env, oenv, fd);
 		else
 			close(fd[0]);
 	}

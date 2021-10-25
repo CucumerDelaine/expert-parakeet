@@ -14,19 +14,19 @@
 
 int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 {
-	// if (!ft_strncmp_nr("echo", cmd->cmd, 4))
+	// if (!ft_strncmp_nr("echo", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_echo(cmd);
-	// else if (!ft_strncmp_nr("cd", cmd->cmd, 2))
+	// else if (!ft_strncmp_nr("cd", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_cd(cmd, env);
-	// else if (!ft_strncmp_nr("pwd", cmd->cmd, 3))
+	// else if (!ft_strncmp_nr("pwd", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_pwd(cmd, envp, o_en);
-	// else if (!ft_strncmp_nr("export", cmd->cmd, 6))
+	// else if (!ft_strncmp_nr("export", cmd->cmd, ft_strlen(cmd->cmd)))
 	// 	g_status_error = comand_export(cmd, env);
-	if (!ft_strncmp_nr("unset", cmd->cmd, 5))
+	if (!ft_strncmp_nr("unset", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_unset(cmd, env);
-	else if (!ft_strncmp_nr("env", cmd->cmd, 3))
+	else if (!ft_strncmp_nr("env", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_env(cmd, env);
-	else if (!ft_strncmp_nr("exit", cmd->cmd, 4))
+	else if (!ft_strncmp_nr("exit", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_exit(cmd);
 	else
 		g_status_error = comand_exve(cmd, env, oenv);
@@ -55,13 +55,12 @@ int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 
 	cmd = *cmd_origin;
 	env = *env_origin;
+	g_status_error = 0;
+	if (back_d_red21(cmd) == 130)
+		return (0);
 	if ((ft_lstsize1(cmd) - 1) > 0)
 		pipe_logic(cmd, env, oenv, ft_lstsize1(cmd) - 1);
 	else
-	{
-		if (cmd->back_d_red)
-			back_d_red(cmd);
 		find_comand(cmd, env, oenv);
-	}
 	return (0);
 }
