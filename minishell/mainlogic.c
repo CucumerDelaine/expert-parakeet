@@ -58,6 +58,10 @@ int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 	if ((ft_lstsize1(cmd) - 1) > 0)
 		pipe_logic(cmd, env, oenv, ft_lstsize1(cmd) - 1);
 	else
+	{
+		if (cmd->back_d_red)
+			back_d_red(cmd);
 		find_comand(cmd, env, oenv);
+	}
 	return (0);
 }
