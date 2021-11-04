@@ -11,12 +11,12 @@ t_env	*ft_lstnew_env(char *key, char *value)
 	if (!(ft_strncmp(key, "SHLVL", 5)))
 	{
 		free(value);
-		value = ft_itoa(2);
+		value = ft_itoa(ft_atoi(value) + 1);
 	}
 	if (!(ft_strncmp(key, "OLDPWD", 6)))
 	{
 		free(value);
-		value = "\0";
+		value = 0;
 	}
 	new->key = key;
 	new->value = value;

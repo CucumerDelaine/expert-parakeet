@@ -14,15 +14,15 @@
 
 int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 {
-	// if (!ft_strncmp_nr("echo", cmd->cmd, ft_strlen(cmd->cmd)))
-	// 	g_status_error = comand_echo(cmd);
-	// else if (!ft_strncmp_nr("cd", cmd->cmd, ft_strlen(cmd->cmd)))
-	// 	g_status_error = comand_cd(cmd, env);
-	// else if (!ft_strncmp_nr("pwd", cmd->cmd, ft_strlen(cmd->cmd)))
-	// 	g_status_error = comand_pwd(cmd, envp, o_en);
-	// else if (!ft_strncmp_nr("export", cmd->cmd, ft_strlen(cmd->cmd)))
-	// 	g_status_error = comand_export(cmd, env);
-	if (!ft_strncmp_nr("unset", cmd->cmd, ft_strlen(cmd->cmd)))
+	if (!ft_strncmp_nr("echo", cmd->cmd, ft_strlen(cmd->cmd)))
+		g_status_error = comand_echo(cmd);
+	else if (!ft_strncmp_nr("cd", cmd->cmd, ft_strlen(cmd->cmd)))
+		g_status_error = comand_cd(cmd, env, oenv);
+	else if (!ft_strncmp_nr("pwd", cmd->cmd, ft_strlen(cmd->cmd)))
+		g_status_error = command_pwd(cmd, env, oenv);
+	else if (!ft_strncmp_nr("export", cmd->cmd, ft_strlen(cmd->cmd)))
+		g_status_error = comand_export(cmd, env);
+	else if (!ft_strncmp_nr("unset", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_unset(cmd, env);
 	else if (!ft_strncmp_nr("env", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_env(cmd, env);

@@ -56,5 +56,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 			return (0);
 		s2[0] = 0;
 	}
+	free((char **)s1);
+	s1 = NULL;
 	return (s2);
 }

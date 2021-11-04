@@ -64,4 +64,3 @@ void	ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new)
 		}
 	}
 }
-

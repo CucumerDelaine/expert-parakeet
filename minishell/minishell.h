@@ -22,6 +22,8 @@ typedef struct s_iter {
 	int		j;
 	char	*tmp;
 	int		full;
+	char	*pwd;
+	char	*oldpwd;
 }				t_iter;
 
 typedef struct s_cmd {
@@ -51,8 +53,8 @@ typedef struct s_pipex
 
 int	g_status_error;
 
-char	*ft_quotes_one(char *str, int *i, t_cmd *cmd, t_env *our_env, char **env);
-char	*ft_dollar(char *str, int *i, char **env);
+char	*ft_quotes_one(char *str, int *i);
+char	*ft_dollar(char *str, int *i, t_env **env);
 int		ft_is_space(char c);
 char	*ft_other_dollar(char *str, int *i);
 int		ifkey(char c);
@@ -82,10 +84,26 @@ int		check_addres(t_env *env, char *cmd);
 int		check_path(t_cmd *cmd, t_env *env);
 void	plus_SHLVL(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
-void	ft_free_cmd(t_cmd **new, char *str);
+int		ft_free_cmd(t_cmd **new, char *str);
 void	init_count(int *i, int *j);
 void	norma2(t_cmd *cmd);
 int		service_char_with(char s);
+int		comand_echo(t_cmd *cmd);
+int		comand_cd(t_cmd *cmd, t_env *env, char **oenv);
+int		comand_export(t_cmd *cmd, t_env *env);
+int		is_sort_env(t_env *env);
+t_env	*ft_copy_env(t_env *env, t_env *copy);
+char	*ft_quotes_two(char *str, int *i, t_env **env);
+int		ft_search_sumb(char *tmp2);
+char	*ft_quotes_two_two(char *str, int *i, t_env **env);
+void	ft_init_iter(t_iter **iter);
+int		ft_strchr_n(const char *s, int c);
+char	*ft_quotes_one_two(char *str, int *i);
+int		postparser(char *str, t_cmd  *new, t_cmd **cmd, t_env **our_env);
+void    ft_redir(t_cmd **cmd, char *str, int *i, int *red);
+char	*ft_quotes_one(char *str, int *i);
+void	ft_freez(char *freez);
+char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
@@ -102,6 +120,7 @@ int		switch_flag(t_cmd *cmd, int flag);
 void	ebuch_norma(int i, int argc, int *ft, int *fd);
 void	find_comand2(t_cmd *cmd, t_env *env, char **oenv);
 void	init_flag_i(int *flag, int *i);
+int		command_pwd(t_cmd *cmd, t_env *env, char **oenv);
 
 void	ft_delete_list_env(char *key, t_env **env);
 t_env	*ft_find_list_env(char *find, t_env **env);
@@ -109,6 +128,7 @@ int		comand_unset(t_cmd *cmd, t_env *envp);
 void	print_envp(t_env *envp, int fd);
 int		comand_env(t_cmd *cmd, t_env *env);
 int		comand_exit(t_cmd *cmd);
+void	free_func(char *key, char *value, t_env *env);
 
 //readline
 char	*readline(const char *line);

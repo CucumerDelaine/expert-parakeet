@@ -27,3 +27,19 @@ int	strcount(t_cmd *cmd)
 		i++;
 	return (i);
 }
+
+void	free_func(char *key, char *value, t_env *env)
+{
+	free(key);
+	free(env);
+	if (value != NULL)
+		free(value);
+}
+
+int	ft_search_sumb(char *tmp2)
+{
+	if (ft_strchr(tmp2, '<') || ft_strchr(tmp2, '>') || ft_strchr(tmp2, '|'))
+		return (1);
+	else
+		return (0);
+}

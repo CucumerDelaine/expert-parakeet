@@ -5,11 +5,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
-	if (s2 == NULL)
+	if (s2 == NULL || s1 == NULL)
 		return (1);
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (s1[i] - s2[i]);
 }
 
 void	ft_delete_list_env(char *key, t_env **env)
@@ -22,11 +22,11 @@ void	ft_delete_list_env(char *key, t_env **env)
 	{
 		if (!ft_strcmp(tmp->next->key, key))
 		{
+			tmp_2 = tmp->next->next;
 			if (tmp->next->key)
 				free(tmp->next->key);
 			if (tmp->next->value)
 				free(tmp->next->value);
-			tmp_2 = tmp->next->next;
 			free(tmp->next);
 			tmp->next = tmp_2;
 			return ;

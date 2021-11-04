@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c env.c unset.c exit.c pipe2.c pipe3.c exve4.c back_d_red2.c utils2.c
+SRC = parcer/mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c env.c unset.c exit.c pipe2.c pipe3.c exve4.c back_d_red2.c utils2.c cd_command.c pwd_export_command.c parcer/quotes_two.c parcer/dollar.c parcer/parcer.c parcer/quotes_one.c
 
 SRCL = ./libft
 
