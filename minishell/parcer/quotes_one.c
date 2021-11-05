@@ -8,7 +8,7 @@ char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str)
 	return (str);
 }
 
-char *ft_quotes_one_cont(char *tmp, char *tmp2, char *tmp3, int *i)
+char	*ft_quotes_one_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 {
 	char	*freez;
 	char	*str;
@@ -40,13 +40,13 @@ char	*ft_quotes_one(char *str, int *i)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp3 = strdup(str + *i + 1);
-	if (ft_search_sumb(tmp2))
+	if (only_service(tmp2[0]) && ft_strlen(tmp) != 0 && ft_strlen(tmp3) != 0)
 		return (ft_freez_three(tmp, tmp2, tmp3, str));
 	ft_freez(str);
 	return (ft_quotes_one_cont(tmp, tmp2, tmp3, i));
 }
 
-char *ft_quotes_one_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
+char	*ft_quotes_one_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 {
 	char	*freez;
 	char	*str;
@@ -59,22 +59,23 @@ char *ft_quotes_one_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 	return (ft_freez_three(tmp, tmp2, tmp3, str));
 }
 
-char *ft_quotes_one_two(char *str, int *i)
+char	*ft_quotes_one_two(char *str, int *i)
 {
-    int j = *i;
-    char *tmp = NULL;
-    char *tmp2 = NULL;
-    char *tmp3 = NULL;
-    char *freez;
+	int		j;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+	char	*freez;
 
-    while (str[++(*i)])
-    {
-        if (str[(*i)] == '\'')
-            break;
-    }
-    tmp = ft_substr(str, 0, j);
-    tmp2 = ft_substr(str,j + 1 , *i - j - 1);
-    tmp3 = strdup(str + *i + 1);
-    ft_freez(str);
-    return (ft_quotes_one_two_cont(tmp, tmp2, tmp3, i));
+	j = *i;
+	while (str[++(*i)])
+	{
+		if (str[(*i)] == '\'')
+			break ;
+	}
+	tmp = ft_substr(str, 0, j);
+	tmp2 = ft_substr(str, j + 1, *i - j - 1);
+	tmp3 = strdup(str + *i + 1);
+	ft_freez(str);
+	return (ft_quotes_one_two_cont(tmp, tmp2, tmp3, i));
 }

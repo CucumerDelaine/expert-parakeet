@@ -19,10 +19,9 @@ int	ft_error(char *str)
 	exit (1);
 }
 
-int	service_char_with(char s)
+int	only_service(char s)
 {
-	if (s == '>' || s == '<' || s == '|' || s == '\0' \
-	|| ft_is_space(s) || s == '\'' || s == '\"')
+	if (s == '>' || s == '<' || s == '|')
 		return (1);
 	return (0);
 }

@@ -1,9 +1,10 @@
 #include "../minishell.h"
 
-void	ft_freez(char *freez)
+int	ft_freez(void *freez)
 {
 	free(freez);
 	freez = NULL;
+	return(1);
 }
 
 char	*ft_find_doll(char *str, int i, int j, char *tmp2)

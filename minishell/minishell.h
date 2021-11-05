@@ -24,6 +24,9 @@ typedef struct s_iter {
 	int		full;
 	char	*pwd;
 	char	*oldpwd;
+	char	*word;
+	char	*argum;
+	char	*flags;
 }				t_iter;
 
 typedef struct s_cmd {
@@ -87,7 +90,7 @@ void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 int		ft_free_cmd(t_cmd **new, char *str);
 void	init_count(int *i, int *j);
 void	norma2(t_cmd *cmd);
-int		service_char_with(char s);
+int		only_service(char s);
 int		comand_echo(t_cmd *cmd);
 int		comand_cd(t_cmd *cmd, t_env *env, char **oenv);
 int		comand_export(t_cmd *cmd, t_env *env);
@@ -102,7 +105,7 @@ char	*ft_quotes_one_two(char *str, int *i);
 int		postparser(char *str, t_cmd  *new, t_cmd **cmd, t_env **our_env);
 void    ft_redir(t_cmd **cmd, char *str, int *i, int *red);
 char	*ft_quotes_one(char *str, int *i);
-void	ft_freez(char *freez);
+int		ft_freez(void *freez);
 char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);
 
 // pipe.c
