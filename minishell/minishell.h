@@ -18,15 +18,12 @@ typedef struct s_env {
 }				t_env;
 
 typedef struct s_iter {
-	int		i;
-	int		j;
 	char	*tmp;
 	int		full;
-	char	*pwd;
-	char	*oldpwd;
 	char	*word;
 	char	*argum;
 	char	*flags;
+	char	*res;
 }				t_iter;
 
 typedef struct s_cmd {
@@ -43,6 +40,7 @@ typedef struct s_cmd {
 	char			**red_words;
 	struct s_cmd	*next;
 	struct s_cmd	*back;
+	int				word_num;
 }	t_cmd;
 
 typedef struct s_pipex
@@ -57,9 +55,9 @@ typedef struct s_pipex
 int	g_status_error;
 
 char	*ft_quotes_one(char *str, int *i);
-char	*ft_dollar(char *str, int *i, t_env **env);
+char	*ft_dollar(char *str, int i, t_env **env);
 int		ft_is_space(char c);
-char	*ft_other_dollar(char *str, int *i);
+char	*ft_other_dollar(char *str, int i);
 int		ifkey(char c);
 t_env	*ft_lstnew_env(char *key, char *value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
@@ -103,7 +101,7 @@ void	ft_init_iter(t_iter **iter);
 int		ft_strchr_n(const char *s, int c);
 char	*ft_quotes_one_two(char *str, int *i);
 int		postparser(char *str, t_cmd  *new, t_cmd **cmd, t_env **our_env);
-void    ft_redir(t_cmd **cmd, char *str, int *i, int *red);
+void    ft_redir(t_cmd **cmd, char *str, int *i);
 char	*ft_quotes_one(char *str, int *i);
 int		ft_freez(void *freez);
 char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);

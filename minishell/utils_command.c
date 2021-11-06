@@ -30,6 +30,7 @@ t_cmd	*ft_lstnew_cmd(char *command)
 	new->next = NULL;
 	new->back_d_red = 0;
 	new->fd_red = 0;
+	new->word_num = 0;
 	return (new);
 }
 

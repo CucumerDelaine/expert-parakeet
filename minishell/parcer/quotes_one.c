@@ -40,7 +40,7 @@ char	*ft_quotes_one(char *str, int *i)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp3 = strdup(str + *i + 1);
-	if (only_service(tmp2[0]) && ft_strlen(tmp) != 0 && ft_strlen(tmp3) != 0)
+	if (only_service(tmp2[0]) && tmp[ft_strlen(tmp) - 1] == ' ' && (tmp3[0] == ' ' || tmp3[0] == '\0' || ft_strlen(tmp3) == 0))
 		return (ft_freez_three(tmp, tmp2, tmp3, str));
 	ft_freez(str);
 	return (ft_quotes_one_cont(tmp, tmp2, tmp3, i));

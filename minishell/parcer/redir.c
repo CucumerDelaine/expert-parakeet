@@ -54,7 +54,7 @@ void	ft_forward_two(t_cmd **cmd, int *i, char *str)
 	free(file);
 }
 
-void	ft_back_one(t_cmd **cmd, int *i, char *str, int *red)
+void	ft_back_one(t_cmd **cmd, int *i, char *str)
 {
 	int	j;
 
@@ -65,8 +65,8 @@ void	ft_back_one(t_cmd **cmd, int *i, char *str, int *red)
 	j = (*i);
 	while (!service_char(str[(*i)]))
 		(*i)++;
-	(*cmd)->red_words[(*red)] = ft_substr(str, j, (*i) - j);
-	(*red)++;
+	(*cmd)->red_words[(*cmd)->word_num] = ft_substr(str, j, (*i) - j);
+	(*cmd)->word_num++;
 	while (ft_is_space(str[*i]))
 		(*i)++;
 }
@@ -98,7 +98,7 @@ void	ft_back_two(t_cmd **cmd, int *i, char *str)
 	free(file);
 }
 
-void	ft_redir(t_cmd **cmd, char *str, int *i, int *red)
+void	ft_redir(t_cmd **cmd, char *str, int *i)
 {
 	int		j;
 	char	*file;
@@ -115,7 +115,7 @@ void	ft_redir(t_cmd **cmd, char *str, int *i, int *red)
 	else if (str[(*i)] == '<')
 	{
 		if (str[(*i) + 1] == '<')
-			ft_back_one(cmd, i, str, red);
+			ft_back_one(cmd, i, str);
 		else if (str[*i + 1] != '<')
 			ft_back_two(cmd, i, str);
 	}

@@ -20,10 +20,12 @@ int    ft_strchr_n(const char *s, int c)
 void ft_init_iter(t_iter **iter)
 {
     *iter = malloc(sizeof(t_iter));
-    (*iter)->i = 0;
-    (*iter)->j = 0;
     (*iter)->tmp = NULL;
     (*iter)->full = 0;
+	(*iter)->res = NULL;
+	(*iter)->word = NULL;
+	(*iter)->argum = NULL;
+	(*iter)->flags = NULL;
 }
 
 int ft_shr_print(char *str)
@@ -119,7 +121,6 @@ int    preparser(char *str, int *i)
         }
         (*i)++;
     }
-    //    printf("str = %s\n", str);
     return 0;
 }
 
@@ -183,7 +184,7 @@ void    ft_signal_init()
     signal(SIGQUIT, SIG_IGN);
 }
 
-int    main(int argc, char **argv, char **env) // сделать выполнение команд c ctrl-C ctrl-D ctrl-
+int    main(int argc, char **argv, char **env)
 {
     t_cmd    *cmd;
     t_env    *our_env;
@@ -203,6 +204,6 @@ int    main(int argc, char **argv, char **env) // сделать выполне�
 }
 
 /// кейсы 
-//
-//  'dawwdadwa''|'dwadwawad
-//
+// "|"
+//  
+// dawdw "|" daw
