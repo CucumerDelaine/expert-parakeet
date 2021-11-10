@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parcer2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/10 16:13:08 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/10 16:13:09 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	free_iter_res_or_word(t_iter *iter)
@@ -14,10 +26,32 @@ void	free_iter_res_or_word(t_iter *iter)
 	}
 }
 
+int	ft_find_service(char *str)
+{
+	if (ft_strchr(str, '|') || ft_strchr(str, '<') || ft_strchr(str, '>'))
+		return (1);
+	else
+		return (0);
+}
+
 void	ft_iter_cont(t_iter **iter, char **str, int i)
 {
+	int	j;
+
+	j = 0;
 	(*iter)->res = ft_substr((*str), 0, i + 1);
 	(*iter)->full = 1;
+	while ((*iter)->res[j])
+	{
+		if (ft_find_service(((*iter)->res)))
+		{
+			if ((*iter)->res[j] == '\'')
+				(*iter)->res = ft_quotes_one_two((*iter)->res, &j);
+			else if ((*iter)->res[j] == '\"')
+				(*iter)->res = ft_quotes_two_two((*iter)->res, &j);
+		}
+		j++;
+	}
 }
 
 void	ft_parcer(char **str, t_env **our_env, t_iter **iter)
@@ -30,18 +64,13 @@ void	ft_parcer(char **str, t_env **our_env, t_iter **iter)
 		if ((*str)[i] == '\'')
 			(*str) = ft_quotes_one((*str), &i);
 		else if ((*str)[i] == '$')
-			(*str) = ft_dollar((*str), i, our_env);
+			(*str) = ft_dollar((*str), &i, our_env);
 		else if ((*str)[i] == '\"')
-		{
 			(*str) = ft_quotes_two((*str), &i, our_env);
-			if ((*str)[i] == '\"' && (*str)[i + 1] == '|')
-				(*str) = ft_quotes_two((*str), &i, our_env);
-		}
 		if (((*str) != NULL && ((ft_is_space((*str)[i + 1]) || \
 		(*str)[i + 1] == '\0')) && (*iter)->full == 0) || \
 		((*str) != NULL && (only_service((*str)[i + 1])) \
-		&& (*iter)->full == 0 && ((*str)[i + 1] == ' ' \
-		|| (*str)[i - 1] == ' ')))
+		&& (*iter)->full == 0 && ((*str)[i] != '\'' && (*str)[i] != '\"')))
 			ft_iter_cont(iter, str, i);
 		if ((*str) == NULL)
 			return ;

@@ -21,7 +21,7 @@ int	preparser(char *str, int *i)
 			(*i)++;
 			if (str[*i] == '\0')
 				return (1);
-			j = preparser2(str, i);
+			j = preparser3(str, i);
 		}
 		(*i)++;
 	}
@@ -95,6 +95,10 @@ int	main(int argc, char **argv, char **env)
 }
 
 /// кейсы 
-// "|"
-//  
-// dawdw "|" daw
+// 
+//  cd .
+// echo "bip | bip coyotte > < "
+
+// условие из ковычек if (only_service(tmp2[0])
+// && tmp[ft_strlen(tmp) - 1] == ' ' && 
+// (tmp3[0] == ' ' || tmp3[0] == '\0' || ft_strlen(tmp3) == 0))

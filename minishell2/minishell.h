@@ -55,7 +55,7 @@ typedef struct s_pipex
 int	g_status_error;
 
 char	*ft_quotes_one(char *str, int *i);
-char	*ft_dollar(char *str, int i, t_env **env);
+char	*ft_dollar(char *str, int *i, t_env **env);
 int		ft_is_space(char c);
 char	*ft_other_dollar(char *str, int i);
 int		ifkey(char c);
@@ -96,7 +96,7 @@ int		is_sort_env(t_env *env);
 t_env	*ft_copy_env(t_env *env, t_env *copy);
 char	*ft_quotes_two(char *str, int *i, t_env **env);
 int		ft_search_sumb(char *tmp2);
-char	*ft_quotes_two_two(char *str, int *i, t_env **env);
+char	*ft_quotes_two_two(char *str, int *i);
 void	ft_init_iter(t_iter **iter);
 int		ft_strchr_n(const char *s, int c);
 char	*ft_quotes_one_two(char *str, int *i);
@@ -158,5 +158,6 @@ void	free_iter_res_or_word(t_iter *iter);
 void	ft_min_exit(void);
 int		print_prepars_invalid(char *str);
 int		preparser2(char *str, int *i);
+int		preparser3(char *str, int *i);
 
 #endif

@@ -1,17 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parcer.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/10 13:53:37 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/10 14:52:40 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_find_command(char **str, int *i, t_cmd **new, \
-t_iter *iter, t_env **env)
+t_iter *iter)
 {
 	int	j;
 
 	j = *i;
-	if ((*str)[(*i)] == '\'' && ((*str)[(*i) + 1] == '|' || \
-	(*str)[(*i) + 1] == '<' || (*str)[(*i) + 1] == '>'))
+	if ((*str)[(*i)] == '\'')
 		(*str) = ft_quotes_one_two((*str), i);
-	else if ((*str)[(*i)] == '\"' && ((*str)[(*i) + 1] == '|' \
-	|| (*str)[(*i) + 1] == '<' || (*str)[(*i) + 1] == '>'))
-		(*str) = ft_quotes_two_two((*str), i, env);
+	else if ((*str)[(*i)] == '\"')
+		(*str) = ft_quotes_two_two((*str), i);
 	while (!service_char((*str)[*i]))
 		(*i)++;
 	if (iter->res == NULL || ft_strlen(iter->res) == 0)
@@ -30,7 +40,7 @@ t_iter *iter, t_env **env)
 		(*i)++;
 }
 
-void	ft_find_argum(char **str, int *i, t_iter *iter, t_cmd *new, t_env **env)
+void	ft_find_argum(char **str, int *i, t_iter *iter, t_cmd *new)
 {
 	int	j;
 
@@ -42,7 +52,7 @@ void	ft_find_argum(char **str, int *i, t_iter *iter, t_cmd *new, t_env **env)
 			(*str) = ft_quotes_one_two((*str), i);
 		else if ((*str)[(*i)] == '\"' && ((*str)[(*i) + 1] == '|' \
 		|| (*str)[(*i) + 1] == '<' || (*str)[(*i) + 1] == '>'))
-			(*str) = ft_quotes_two_two((*str), i, env);
+			(*str) = ft_quotes_two_two((*str), i);
 		while (!service_char((*str)[*i]))
 			(*i)++;
 		iter->argum = ft_substr((*str), j, (*i) - j);
@@ -54,26 +64,26 @@ void	ft_find_argum(char **str, int *i, t_iter *iter, t_cmd *new, t_env **env)
 	}
 }
 
-void	ft_pipe_redir(char *str, int *i, t_cmd **cmd, t_cmd *new)
+void	ft_pipe_redir(char *str, int *i, t_cmd **cmd, t_cmd **new)
 {
 	if (str[*i] == '|')
 	{
 		(*i)++;
 		while (ft_is_space(str[*i]) && str[*i] != '\0')
 			(*i)++;
-		ft_lstadd_back_cmd(cmd, new);
-		new = NULL;
+		ft_lstadd_back_cmd(cmd, *new);
+		*new = NULL;
 	}
 	else if ((str[*i] == '>' || str[*i] == '<'))
 	{
-		if (new == NULL)
-			new = ft_lstnew_cmd(NULL);
-		ft_redir(&new, str, i);
+		if (*new == NULL)
+			*new = ft_lstnew_cmd(NULL);
+		ft_redir(new, str, i);
 	}
 }
 
 int	ft_common_parcer(char **str, t_cmd **cmd, t_cmd **new, \
-t_iter *iter, t_env **env)
+t_iter *iter)
 {
 	int	i;
 
@@ -84,11 +94,11 @@ t_iter *iter, t_env **env)
 			i++;
 		if (!service_char((*str)[i]))
 		{
-			ft_find_command(str, &i, new, iter, env);
+			ft_find_command(str, &i, new, iter);
 			ft_find_flags(*str, *new, iter, &i);
-			ft_find_argum(str, &i, iter, *new, env);
+			ft_find_argum(str, &i, iter, *new);
 		}
-		ft_pipe_redir(*str, &i, cmd, *new);
+		ft_pipe_redir(*str, &i, cmd, new);
 	}
 	return (i);
 }
@@ -107,7 +117,7 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env)
 	ft_parcer(&str, our_env, &iter);
 	if (str == NULL)
 		return (ft_freez(iter));
-	i = ft_common_parcer(&str, cmd, &new, iter, our_env);
+	i = ft_common_parcer(&str, cmd, &new, iter);
 	if (str[i] == '\0')
 	{
 		ft_lstadd_back_cmd(cmd, new);

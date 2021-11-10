@@ -7,7 +7,7 @@ int	ft_freez(void *freez)
 	return(1);
 }
 
-char	*ft_find_doll(char *str, int i, int j, char *tmp2)
+char	*ft_find_doll(char *str, int *i, int j, char *tmp2)
 {
 	char	*freez;
 	char	*tmp;
@@ -17,7 +17,7 @@ char	*ft_find_doll(char *str, int i, int j, char *tmp2)
 	tmp = NULL;
 	tmp3 = NULL;
 	tmp = ft_substr(str, 0, j);
-	tmp3 = ft_substr(str, i, ft_strlen(str) - i);
+	tmp3 = ft_substr(str, (*i), ft_strlen(str) - (*i));
 	freez = str;
 	str = ft_strjoin(tmp, tmp2);
 	ft_freez(freez);
@@ -26,6 +26,7 @@ char	*ft_find_doll(char *str, int i, int j, char *tmp2)
 	ft_freez(freez);
 	ft_freez(tmp);
 	ft_freez(tmp3);
+	(*i)--;
 	return (str);
 }
 

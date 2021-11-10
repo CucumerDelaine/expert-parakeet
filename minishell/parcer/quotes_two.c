@@ -69,7 +69,7 @@ char	*ft_quotes_two(char *str, int *i, t_env **env)
 	return (ft_quotes_two_cont(tmp, tmp2, tmp3, i));
 }
 
-char	*ft_quotes_two_two(char *str, int *i, t_env **env)
+char	*ft_quotes_two_two(char *str, int *i)
 {
 	int		j;
 	char	*tmp;
@@ -83,8 +83,6 @@ char	*ft_quotes_two_two(char *str, int *i, t_env **env)
 	{
 		if (str[(*i)] == '\"')
 			break ;
-		if (str[*i] == '$')
-			str = ft_dollar(str, *i, env);
 		(*i)++;
 	}
 	tmp = ft_substr(str, 0, j);
