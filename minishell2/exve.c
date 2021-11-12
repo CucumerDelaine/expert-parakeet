@@ -48,6 +48,8 @@ int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 	int	err;
 
 	err = 0;
+	if (cmd->cmd == NULL )
+		return (g_status_error);
 	if (!path(cmd->cmd) && check_path(cmd, env))
 		return (g_status_error);
 	pid = fork();
