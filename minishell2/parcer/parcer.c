@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:53:37 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/12 15:11:19 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:31:46 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ t_iter *iter)
 	if (iter->res == NULL || ft_strlen(iter->res) == 0)
 	{
 		iter->word = ft_substr((*str), j, (*i) - j);
-		(*new) = ft_lstnew_cmd(iter->word);
+		if (*new == NULL)
+			(*new) = ft_lstnew_cmd(iter->word);
+		else
+			(*new)->cmd = ft_strdup(iter->word);
 		free_iter_res_or_word(iter);
 	}
 	else
@@ -62,7 +65,7 @@ void	ft_find_argum(char **str, int *i, t_iter *iter, t_cmd *new)
 	}
 }
 
-void	ft_pipe_redir(char *str, int *i, t_cmd **cmd, t_cmd **new)
+int	ft_pipe_redir(char *str, int *i, t_cmd **cmd, t_cmd **new)
 {
 	if (str[*i] == '|')
 	{
@@ -76,8 +79,13 @@ void	ft_pipe_redir(char *str, int *i, t_cmd **cmd, t_cmd **new)
 	{
 		if (*new == NULL)
 			*new = ft_lstnew_cmd(NULL);
-		ft_redir(new, str, i);
+		if (ft_redir(new, str, i))
+		{
+			g_status_error = 1;
+			return (1234);
+		}
 	}
+	return (0);
 }
 
 int	ft_common_parcer(char **str, t_cmd **cmd, t_cmd **new, \
@@ -96,7 +104,13 @@ t_iter *iter)
 			ft_find_flags(*str, *new, iter, &i);
 			ft_find_argum(str, &i, iter, *new);
 		}
-		ft_pipe_redir(*str, &i, cmd, new);
+		if (ft_pipe_redir(*str, &i, cmd, new))
+			return (1234);
+		if (iter->res != NULL)
+		{
+			free(iter->res);
+			iter->res = NULL;
+		}
 	}
 	return (i);
 }
@@ -121,8 +135,8 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env)
 		free (str);
 		str = NULL;
 		new = NULL;
-		ft_free_iter(iter);
-		if ((*cmd) == NULL)
+		ft_free_iter(&iter);
+		if ((*cmd) == NULL || i == 1234)
 			return (1);
 		return (0);
 	}

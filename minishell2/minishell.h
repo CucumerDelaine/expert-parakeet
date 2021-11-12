@@ -100,7 +100,7 @@ void	ft_init_iter(t_iter **iter);
 int		ft_strchr_n(const char *s, int c);
 char	*ft_quotes_one_two(char *str, int *i);
 int		postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env);
-void	ft_redir(t_cmd **cmd, char *str, int *i);
+int		ft_redir(t_cmd **cmd, char *str, int *i);
 char	*ft_quotes_one(char *str, int *i);
 int		ft_freez(void *freez);
 char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);
@@ -122,7 +122,7 @@ void	ebuch_norma(int i, int argc, int *ft, int *fd);
 void	find_comand2(t_cmd *cmd, t_env *env, char **oenv);
 void	init_flag_i(int *flag, int *i);
 int		command_pwd(t_cmd *cmd, t_env *env, char **oenv);
-void	ft_free_iter(t_iter *iter);
+void	ft_free_iter(t_iter **iter);
 
 void	ft_delete_list_env(char *key, t_env **env);
 t_env	*ft_find_list_env(char *find, t_env **env);
@@ -160,7 +160,5 @@ void	ft_min_exit(void);
 int		print_prepars_invalid(char *str);
 int		preparser2(char *str, int *i);
 int		preparser3(char *str, int *i);
-void	ft_siginit_cat(void);
-void	ft_ctrl_bs_cat(int id);
 
 #endif

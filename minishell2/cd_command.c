@@ -57,7 +57,7 @@ int	ft_first_cd(char *oldpath, t_env **env, t_cmd *cmd)
 		stat = ft_go_home_cd(oldpath, *env, tmp);
 	else
 		stat = print_no_such(cmd);
-	return (0);
+	return (stat);
 }
 
 int	ft_second_cd(char *oldpath, t_env **env, t_cmd *cmd)

@@ -7,8 +7,6 @@ int	preparser(char *str, int *i)
 	j = 0;
 	while (str[*i])
 	{
-		if (str[*i] == '\\' || str[*i] == ';')
-			return (1);
 		if (str[*i] == '\'')
 		{
 			(*i)++;
