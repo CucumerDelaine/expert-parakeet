@@ -38,7 +38,7 @@ int	check_addres(t_env *env, char *cmd)
 	while (str.strings_way[str.i])
 	{
 		str.addres = ft_strjoin(str.strings_way[str.i++], "/");
-		str.addres_full = ft_strjoin(str.addres, str.comand[0]);
+		str.addres_full = ft_strjoin(str.addres, cmd);
 		free(str.addres);
 		if (access(str.addres_full, F_OK) == 0)
 			return (free_normi(&str));

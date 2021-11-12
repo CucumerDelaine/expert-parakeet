@@ -126,6 +126,8 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env)
 		new = NULL;
 		free (iter);
 		iter = NULL;
+		if ((*cmd) == NULL)
+			return (1);
 		return (0);
 	}
 	return (0);
