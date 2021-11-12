@@ -100,11 +100,6 @@ void	ft_back_two(t_cmd **cmd, int *i, char *str)
 
 void	ft_redir(t_cmd **cmd, char *str, int *i)
 {
-	int		j;
-	char	*file;
-	int		fd_next;
-	int		fd_back;
-
 	if (str[*i] == '>')
 	{
 		if (str[*i + 1] == '>')

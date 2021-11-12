@@ -10,7 +10,7 @@ LIB		= $(SRCL)/libft.a
 
 HEAD = minishell.h
 
-# CFLAG	= -Wall -Wextra -Werror -g
+CFLAG	= -Wall -Wextra -Werror -g
 
 RM		= rm -f
 

@@ -27,7 +27,6 @@ char	*ft_quotes_one(char *str, int *i)
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
-	char	*freez;
 
 	j = *i;
 	(*i)++;
@@ -65,7 +64,6 @@ char	*ft_quotes_one_two(char *str, int *i)
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
-	char	*freez;
 
 	j = *i;
 	while (str[++(*i)])

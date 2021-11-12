@@ -72,6 +72,8 @@ int	ft_second_cd(char *oldpath, t_env **env, t_cmd *cmd)
 	tmp->value = ft_strdup(oldpath);
 	if (!chdir(cmd->argum[0]))
 	{
+		if (ft_find_list_env("PWD", env) == NULL)
+			return (0);
 		tmp = ft_find_list_env("PWD", env);
 		free(tmp->value);
 		getcwd(oldpath, 10000);
@@ -84,7 +86,7 @@ int	ft_second_cd(char *oldpath, t_env **env, t_cmd *cmd)
 	return (stat);
 }
 
-int	comand_cd(t_cmd *cmd, t_env *env, char **oenv)
+int	comand_cd(t_cmd *cmd, t_env *env)
 {
 	char	oldpath[10000];
 

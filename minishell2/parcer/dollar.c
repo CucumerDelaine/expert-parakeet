@@ -92,6 +92,7 @@ char	*ft_other_dollar(char *str, int i)
 	char	*freez;
 
 	(i)++;
+	tmp2 = NULL;
 	tmp = ft_substr(str, 0, i - 1);
 	if (str[i] == '$')
 		tmp2 = ft_itoa(getpid());

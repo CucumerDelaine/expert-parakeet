@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainlogic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 14:39:10 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/10/02 14:39:12 by cdelaine         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:10:10 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 	if (!ft_strncmp_nr("echo", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = comand_echo(cmd);
 	else if (!ft_strncmp_nr("cd", cmd->cmd, ft_strlen(cmd->cmd)))
-		g_status_error = comand_cd(cmd, env, oenv);
+		g_status_error = comand_cd(cmd, env);
 	else if (!ft_strncmp_nr("pwd", cmd->cmd, ft_strlen(cmd->cmd)))
 		g_status_error = command_pwd(cmd, env, oenv);
 	else if (!ft_strncmp_nr("export", cmd->cmd, ft_strlen(cmd->cmd)))

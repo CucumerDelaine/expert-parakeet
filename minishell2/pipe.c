@@ -43,7 +43,6 @@ void	cmd_proc_last(int i, int *ft, int *fd)
 void	cmd_proc_two(t_cmd *cmd, t_env *env, char **oenv, int argc)
 {
 	pid_t	pid;
-	int		err;
 	int		fd[2];
 
 	if (1)

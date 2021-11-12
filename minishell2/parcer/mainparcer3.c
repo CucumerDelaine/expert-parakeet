@@ -41,3 +41,11 @@ int	preparser3(char *str, int *i)
 	}
 	return (0);
 }
+
+void	ft_free_iter(t_iter *iter)
+{
+	if ((iter)->res)
+		free((iter)->res);
+	free(iter);
+	iter = NULL;
+}

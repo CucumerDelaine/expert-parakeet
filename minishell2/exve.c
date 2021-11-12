@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exve.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 16:02:57 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/10/07 16:02:59 by cdelaine         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:07:01 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	path(char *name_programm)
 	return (0);
 }
 
-void	call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
+void	call_execve_proc(t_cmd *cmd, char **oenv)
 {
 	char	*name_program;
 	char	**flags;
@@ -34,7 +34,7 @@ void	call_execve_proc(t_cmd *cmd, t_env *env, char **oenv)
 	if (path(cmd->cmd))
 		name_program = ft_strdup(cmd->cmd);
 	else
-		name_program = get_addres(oenv, env, cmd->cmd);
+		name_program = get_addres(oenv, cmd->cmd);
 	flags = get_flag(cmd);
 	check_minishel(name_program, oenv, cmd);
 	execve(name_program, flags, oenv);
@@ -63,7 +63,7 @@ int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 			dup2(cmd->fd_red, STDIN_FILENO);
 		if (cmd->fd_out != 1)
 			dup2(cmd->fd_out, STDOUT_FILENO);
-		call_execve_proc(cmd, env, oenv);
+		call_execve_proc(cmd, oenv);
 	}
 	waitpid(pid, &err, WUNTRACED | WCONTINUED);
 	g_status_error = WEXITSTATUS(err);

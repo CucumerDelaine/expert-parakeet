@@ -47,9 +47,9 @@ int	ft_minishell(t_env **our_env, char *str, char **env, t_cmd	**cmd)
 				return (print_prepars_invalid(str));
 		}
 		if (postparser(str, new, cmd, our_env))
-			return (ft_free_cmd(cmd, str));
+			return (ft_free_cmd(cmd));
 		logic(cmd, our_env, env);
-		ft_free_cmd(cmd, str);
+		ft_free_cmd(cmd);
 	}
 	else
 		free(str);
@@ -96,8 +96,8 @@ int	main(int argc, char **argv, char **env)
 
 /// кейсы 
 // 
-//  cd .
-// echo "bip | bip coyotte > < "
+//
+//
 
 // условие из ковычек if (only_service(tmp2[0])
 // && tmp[ft_strlen(tmp) - 1] == ' ' && 

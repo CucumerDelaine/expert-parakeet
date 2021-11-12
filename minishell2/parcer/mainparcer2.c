@@ -59,7 +59,7 @@ void	ft_free_cmd_cont(t_cmd **new)
 	tmp = NULL;
 }
 
-int	ft_free_cmd(t_cmd **new, char *str)
+int	ft_free_cmd(t_cmd **new)
 {
 	int	i;
 

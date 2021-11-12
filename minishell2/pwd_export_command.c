@@ -51,7 +51,7 @@ int	comand_export(t_cmd *cmd, t_env *env)
 	t_env	*copy;
 
 	copy = NULL;
-	copy = ft_copy_env(env, copy);
+	ft_copy_env(env, &copy);
 	if (cmd->fd_out < 0)
 		return (1);
 	fd = cmd->fd_out;
@@ -69,5 +69,20 @@ int	comand_export(t_cmd *cmd, t_env *env)
 				return (1);
 		}
 	}
+	ft_copy_freed(&copy);
 	return (0);
+}
+
+void	ft_copy_freed(t_env **lst)
+{
+	t_env	*low;
+	t_env	*temp;
+
+	low = *lst;
+	while (low)
+	{
+		temp = low;
+		low = low->next;
+		free(temp);
+	}
 }

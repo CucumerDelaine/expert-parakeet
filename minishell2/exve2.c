@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exve2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 16:03:43 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/10/07 16:03:48 by cdelaine         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:05:56 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*print_exit(t_pipex *str, int i)
 	exit (127);
 }
 
-char	*get_addres(char **oenvp, t_env *envp, char *cmd_string)
+char	*get_addres(char **oenvp, char *cmd_string)
 {
 	t_pipex	str;
 

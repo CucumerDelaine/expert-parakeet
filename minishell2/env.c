@@ -19,10 +19,6 @@ void	print_envp(t_env *envp, int fd)
 
 int	comand_env(t_cmd *cmd, t_env *env)
 {
-	int	fd;
-
-	if (cmd->fd_out)
-		fd = cmd->fd_out;
-	print_envp(env, fd);
+	print_envp(env, cmd->fd_out);
 	return (0);
 }

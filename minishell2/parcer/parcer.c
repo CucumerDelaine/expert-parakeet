@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:53:37 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/10 14:52:40 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:11:19 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ void	ft_find_argum(char **str, int *i, t_iter *iter, t_cmd *new)
 	while (!service_char((*str)[*i]))
 	{
 		j = (*i);
-		if ((*str)[(*i)] == '\'' && ((*str)[(*i) + 1] == '|' || \
-		(*str)[(*i) + 1] == '<' || (*str)[(*i) + 1] == '>'))
+		if ((*str)[(*i)] == '\'')
 			(*str) = ft_quotes_one_two((*str), i);
-		else if ((*str)[(*i)] == '\"' && ((*str)[(*i) + 1] == '|' \
-		|| (*str)[(*i) + 1] == '<' || (*str)[(*i) + 1] == '>'))
+		else if ((*str)[(*i)] == '\"')
 			(*str) = ft_quotes_two_two((*str), i);
 		while (!service_char((*str)[*i]))
 			(*i)++;
@@ -106,7 +104,6 @@ t_iter *iter)
 int	postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env)
 {
 	int		i;
-	int		j;
 	t_iter	*iter;
 
 	ft_init_iter(&iter);
@@ -124,8 +121,7 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env)
 		free (str);
 		str = NULL;
 		new = NULL;
-		free (iter);
-		iter = NULL;
+		ft_free_iter(iter);
 		if ((*cmd) == NULL)
 			return (1);
 		return (0);

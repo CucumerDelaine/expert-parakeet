@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_env	*ft_copy_env(t_env *env, t_env *copy)
+t_env	*ft_copy_env(t_env *env, t_env **copy)
 {
 	t_env	*tmp;
 	t_env	*new;
@@ -18,10 +18,10 @@ t_env	*ft_copy_env(t_env *env, t_env *copy)
 		new->key = key;
 		new->value = value;
 		new->next = NULL;
-		ft_lstadd_back_env(&copy, new);
+		ft_lstadd_back_env(copy, new);
 		tmp = tmp->next;
 	}
-	return (copy);
+	return *(copy);
 }
 
 int	check_var(char *var)
