@@ -160,5 +160,7 @@ void	ft_min_exit(void);
 int		print_prepars_invalid(char *str);
 int		preparser2(char *str, int *i);
 int		preparser3(char *str, int *i);
+void	ft_siginit_cat(void);
+void	ft_ctrl_bs_cat(int id);
 
 #endif

@@ -43,3 +43,10 @@ int	ft_search_sumb(char *tmp2)
 	else
 		return (0);
 }
+
+void	ft_ctrl_bs_cat(int id)
+{
+	(void) id;
+	write(1, "Quit: 3\n", 8);
+	g_status_error = 131;
+}

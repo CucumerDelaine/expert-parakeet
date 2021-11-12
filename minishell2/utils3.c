@@ -20,3 +20,16 @@ int	print_no_such(t_cmd *cmd)
 	ft_putstr_fd("\n", 2);
 	return (1);
 }
+
+void	ft_ctrl_c_cat(int id)
+{
+	(void) id;
+	write (1, "\n", 1);
+	g_status_error = 130;
+}
+
+void	ft_siginit_cat(void)
+{
+	signal(SIGINT, ft_ctrl_c_cat);
+	signal(SIGQUIT, ft_ctrl_bs_cat);
+}
