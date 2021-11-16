@@ -38,7 +38,7 @@ void	back_d_red_child2(t_cmd *cmd, int *fd, int count)
 			str = readline("> ");
 		if (i < count)
 		{
-			if (!ft_strncmp_nr(str, cmd->red_words[i], ft_strlen(str)))
+			if (!ft_strncmp_nr(str, cmd->red_words[i], ft_strlen(cmd->red_words[i])))
 				i++;
 			else if (i == count - 1)
 				ft_putstr_fd2(str, fd);
@@ -87,6 +87,15 @@ int	back_d_red21(t_cmd *cmd_o)
 	t_cmd	*cmd;
 
 	cmd = cmd_o;
+	if (cmd->back_d_red)
+	{
+		if (cmd->red_words[0][0] == '\0')
+		{
+			g_status_error = 258;
+			printf("syntax error near unexpected token \n");
+			return (130);
+		}
+	}
 	while (cmd)
 	{
 		if (cmd->back_d_red)
