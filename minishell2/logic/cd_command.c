@@ -80,7 +80,7 @@ int	ft_second_cd(char *oldpath, t_env **env, t_cmd *cmd)
 		getcwd(oldpath, 10000);
 		tmp->value = ft_strdup(oldpath);
 	}
-	else if (!(ft_strcmp(cmd->argum[0], "~")))
+	else if (!(ft_strcmp(cmd->argum[0], "~")) || cmd->argum[0] == NULL)
 		stat = ft_go_home_cd(oldpath, *env, tmp);
 	else
 		stat = print_no_such(cmd);

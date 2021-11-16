@@ -42,3 +42,15 @@ int	ft_strncmp_nr(const char *s1, const char *s2, int n)
 	}
 	return (0);
 }
+
+int ft_check_only_pipe(char *str)
+{
+	int i;
+
+	i = 0;
+	while (ft_is_space(str[i]))
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
+}

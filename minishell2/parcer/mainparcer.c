@@ -2,7 +2,7 @@
 
 int	preparser(char *str, int *i)
 {
-	int	j;
+	int		j;
 
 	j = 0;
 	while (str[*i])
@@ -23,6 +23,8 @@ int	preparser(char *str, int *i)
 		}
 		(*i)++;
 	}
+	if (ft_check_only_pipe(str))
+		return (1);
 	return (j);
 }
 

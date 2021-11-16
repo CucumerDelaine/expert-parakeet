@@ -107,6 +107,7 @@ char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);
 void	ft_copy_freed(t_env **lst);
 int		ft_strcmp(const char *s1, const char *s2);
 int		preparser(char *str, int *i);
+int		ft_check_only_pipe(char *str);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
@@ -124,7 +125,7 @@ void	ebuch_norma(int i, int argc, int *ft, int *fd);
 void	find_comand2(t_cmd *cmd, t_env *env, char **oenv);
 void	init_flag_i(int *flag, int *i);
 int		command_pwd(t_cmd *cmd, t_env *env, char **oenv);
-void	ft_free_iter(t_iter **iter);
+int		ft_free_iter(t_iter **iter);
 
 void	ft_delete_list_env(char *key, t_env **env);
 t_env	*ft_find_list_env(char *find, t_env **env);

@@ -11,6 +11,14 @@ void	ft_min_exit(void)
 
 int	print_prepars_invalid(char *str)
 {
+	char *freez;
+
+	if (ft_check_only_pipe(str))
+	{
+		freez = str;
+		str = ft_strdup("|");
+		ft_freez(freez);
+	}
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(" : invalid command\n", 2);
 	free(str);
@@ -44,7 +52,7 @@ int	preparser3(char *str, int *i)
 	return (0);
 }
 
-void	ft_free_iter(t_iter **iter)
+int	ft_free_iter(t_iter **iter)
 {
 	if ((*iter) != NULL)
 	{
@@ -53,4 +61,5 @@ void	ft_free_iter(t_iter **iter)
 		free(*iter);
 		*iter = NULL;
 	}
+	return (1);
 }

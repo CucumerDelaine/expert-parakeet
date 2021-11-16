@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:53:37 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/16 18:50:57 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:42:46 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ int	postparser(char *str, t_cmd *new, t_cmd **cmd, t_env **our_env)
 	ft_init_iter(&iter);
 	i = 0;
 	str = ft_strtrim(str, "\t\n\v\f\r ");
-	if (str[i] == '\0')
-		return (1);
 	ft_parcer(&str, our_env, &iter);
 	if (str == NULL)
 		return (ft_freez(iter));
