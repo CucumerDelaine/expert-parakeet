@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	find_comand(t_cmd *cmd, t_env *env, char **oenv)
 {
@@ -55,7 +55,6 @@ int	logic(t_cmd **cmd_origin, t_env **env_origin, char **oenv)
 
 	cmd = *cmd_origin;
 	env = *env_origin;
-	g_status_error = 0;
 	if (back_d_red21(cmd) == 130)
 		return (0);
 	if ((ft_lstsize1(cmd) - 1) > 0)

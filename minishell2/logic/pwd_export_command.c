@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	change_value(t_env *new, char *key, t_env *env, char *value)
 {

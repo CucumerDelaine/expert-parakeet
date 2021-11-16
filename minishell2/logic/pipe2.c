@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ebuch_norma(int i, int argc, int *ft, int *fd)
 {

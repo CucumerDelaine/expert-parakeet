@@ -23,14 +23,3 @@ char	*ft_strnstr(const char *big, const char *lit, size_t len)
 	}
 	return (NULL);
 }
-
-// int main()
-// {
-// 	char big[30] = "aaabcabcd";
-// 	char lit[10] = "aabc";
-// 	char *low;
-// 	low = ft_strnstr(big, lit, -1);
-// 	//low = strnstr(big, lit, -1);
-// 	printf("%s", low);
-// 	return(0);
-// }

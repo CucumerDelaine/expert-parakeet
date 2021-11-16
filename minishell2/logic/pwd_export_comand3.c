@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 t_env	*ft_copy_env(t_env *env, t_env **copy)
 {

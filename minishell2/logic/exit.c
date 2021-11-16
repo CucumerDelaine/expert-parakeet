@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	check_many_arg_ex(t_cmd *cmd)
 {

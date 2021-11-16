@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc)
 {

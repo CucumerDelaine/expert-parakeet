@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	path(char *name_programm)
 {
@@ -52,6 +52,7 @@ int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 		return (g_status_error);
 	if (!path(cmd->cmd) && check_path(cmd, env))
 		return (g_status_error);
+	ft_siginit_cat();
 	pid = fork();
 	if (pid < 0)
 		exit (1);

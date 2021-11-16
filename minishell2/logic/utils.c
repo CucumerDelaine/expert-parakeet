@@ -1,5 +1,4 @@
-#include "minishell.h"
-#include "libft/libft.h"
+#include "../minishell.h"
 
 int	ft_error(char *str)
 {

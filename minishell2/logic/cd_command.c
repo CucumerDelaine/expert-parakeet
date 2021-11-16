@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	comand_echo(t_cmd *cmd)
 {
@@ -8,7 +8,8 @@ int	comand_echo(t_cmd *cmd)
 	while (cmd->argum[i])
 	{		
 		ft_putstr_fd(cmd->argum[i], cmd->fd_out);
-		ft_putstr_fd(" ", cmd->fd_out);
+		if (cmd->argum[i + 1] != '\0')
+			ft_putstr_fd(" ", cmd->fd_out);
 		i++;
 	}
 	if (ft_strncmp_nr("-n", cmd->flags[0], ft_strlen(cmd->flags[0])))

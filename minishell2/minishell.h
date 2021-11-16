@@ -5,7 +5,7 @@
 # include <term.h>
 # include <stdlib.h>
 # include <string.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -105,6 +105,7 @@ char	*ft_quotes_one(char *str, int *i);
 int		ft_freez(void *freez);
 char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);
 void	ft_copy_freed(t_env **lst);
+int		ft_strcmp(const char *s1, const char *s2);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);
@@ -160,5 +161,7 @@ void	ft_min_exit(void);
 int		print_prepars_invalid(char *str);
 int		preparser2(char *str, int *i);
 int		preparser3(char *str, int *i);
+void	ft_siginit_cat(void);
+void	ft_ctrl_bs_cat(int id);
 
 #endif
