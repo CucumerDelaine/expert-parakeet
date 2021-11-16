@@ -61,18 +61,23 @@ char	*ft_quotes_one_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 char	*ft_quotes_one_two(char *str, int *i)
 {
 	int		j;
+	int		k;
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
 
 	j = *i;
+	k = j;
 	while (str[++(*i)])
 	{
 		if (str[(*i)] == '\'')
 			break ;
 	}
+	if (preparser (str , &k))
+		tmp2 = ft_substr(str, j, k - j);
+	else
+		tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp = ft_substr(str, 0, j);
-	tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp3 = strdup(str + *i + 1);
 	ft_freez(str);
 	return (ft_quotes_one_two_cont(tmp, tmp2, tmp3, i));

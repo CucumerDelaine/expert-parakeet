@@ -106,6 +106,7 @@ int		ft_freez(void *freez);
 char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str);
 void	ft_copy_freed(t_env **lst);
 int		ft_strcmp(const char *s1, const char *s2);
+int		preparser(char *str, int *i);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);

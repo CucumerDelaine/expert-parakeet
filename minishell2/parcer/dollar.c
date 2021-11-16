@@ -92,12 +92,14 @@ char	*ft_other_dollar(char *str, int i)
 	char	*freez;
 
 	(i)++;
-	tmp2 = NULL;
+	tmp2 = "";
 	tmp = ft_substr(str, 0, i - 1);
 	if (str[i] == '$')
 		tmp2 = ft_itoa(getpid());
 	else if (str[i] == '?')
 		tmp2 = ft_itoa(g_status_error);
+	else
+		tmp2 = ft_strdup("$ ");
 	tmp3 = ft_strdup(str + i + 1);
 	freez = str;
 	str = ft_strjoin(tmp, tmp2);

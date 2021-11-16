@@ -13,6 +13,8 @@ int	print_prepars_invalid(char *str)
 {
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(" : invalid command\n", 2);
+	free(str);
+	str = NULL;
 	return (0);
 }
 

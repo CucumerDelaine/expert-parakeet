@@ -17,6 +17,7 @@ int	ft_forward_one(t_cmd **cmd, int *i, char *str)
 	if (fd_next < 0)
 	{
 		printf("minishell:> %s: %s\n", file, strerror(errno));
+		ft_freez(file);
 		return (1);
 	}
 	(*cmd)->fd_out = fd_next;
@@ -45,6 +46,7 @@ int	ft_forward_two(t_cmd **cmd, int *i, char *str)
 	if (fd_next < 0)
 	{
 		printf("minishell:> %s: %s\n", file, strerror(errno));
+		ft_freez(file);
 		return (1);
 	}
 	(*cmd)->fd_out = fd_next;
@@ -90,6 +92,7 @@ int	ft_back_two(t_cmd **cmd, int *i, char *str)
 	if (fd_back < 0)
 	{
 		printf("minishell:> %s: %s\n", file, strerror(errno));
+		ft_freez(file);
 		return (1);
 	}
 	(*cmd)->fd_in = fd_back;
@@ -103,6 +106,11 @@ int	ft_back_two(t_cmd **cmd, int *i, char *str)
 
 int	ft_redir(t_cmd **cmd, char *str, int *i)
 {
+	if (str[*i] == '<' && str[*i + 1] == '<' && str[*i + 2] == '<')
+	{	
+		printf("syntax error near unexpected token '<<'\n");
+		return (1);
+	}
 	if (str[*i] == '>')
 	{
 		if (str[*i + 1] == '>')
