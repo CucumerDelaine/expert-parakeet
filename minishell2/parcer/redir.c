@@ -13,7 +13,7 @@ int	ft_forward_one(t_cmd **cmd, int *i, char *str)
 	while (!service_char(str[(*i)]))
 		(*i)++;
 	file = ft_substr(str, j, (*i) - j);
-	fd_next = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	fd_next = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd_next < 0)
 	{
 		printf("minishell:> %s: %s\n", file, strerror(errno));

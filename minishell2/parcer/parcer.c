@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:53:37 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/12 16:31:46 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:50:57 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_iter *iter)
 	int	j;
 
 	j = *i;
+	if ((*new) != NULL && (*new)->cmd != NULL)
+		return ;
 	if ((*str)[(*i)] == '\'')
 		(*str) = ft_quotes_one_two((*str), i);
 	else if ((*str)[(*i)] == '\"')
