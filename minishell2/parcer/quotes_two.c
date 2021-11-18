@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_two.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:39:28 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/18 12:39:29 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*ft_quotes_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
@@ -7,7 +19,7 @@ char	*ft_quotes_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 
 	str = ft_strjoin(tmp, tmp2);
 	if (ft_strlen(str) == 0)
-		*i = 0;
+		*i = -1;
 	else
 		*i = ft_strlen(str) - 1;
 	freez = str;
@@ -27,7 +39,7 @@ char	*ft_quotes_two_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 	char	*str;
 
 	str = ft_strjoin(tmp, tmp2);
-	*i -= 1;
+	*i -= 2;
 	freez = str;
 	str = ft_strjoin(str, tmp3);
 	ft_freez(freez);
@@ -82,10 +94,7 @@ char	*ft_quotes_two_two(char *str, int *i)
 			break ;
 		(*i)++;
 	}
-	if (preparser (str , &k))
-		tmp2 = ft_substr(str, j, k - j);
-	else
-		tmp2 = ft_substr(str, j + 1, *i - j - 1);
+	tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp = ft_substr(str, 0, j);
 	tmp3 = ft_strdup(str + *i + 1);
 	ft_freez(str);

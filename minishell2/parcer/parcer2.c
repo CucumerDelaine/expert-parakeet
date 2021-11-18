@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:13:08 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/12 12:50:27 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:58:59 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	ft_iter_cont(t_iter **iter, char **str, int i)
 	j = 0;
 	(*iter)->res = ft_substr((*str), 0, i + 1);
 	(*iter)->full = 1;
+	(*iter)->len = i + 1;
 	while ((*iter)->res[j])
 	{
 		if (ft_find_service(((*iter)->res)))
 		{
 			if ((*iter)->res[j] == '\'')
 				(*iter)->res = ft_quotes_one_two((*iter)->res, &j);
-			else if ((*iter)->res[j] == '\"')
+			if ((*iter)->res[j] == '\"')
 				(*iter)->res = ft_quotes_two_two((*iter)->res, &j);
 		}
 		j++;

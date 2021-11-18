@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:53:37 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/16 19:42:46 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:11:14 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ t_iter *iter)
 		free_iter_res_or_word(iter);
 	}
 	else
-	{
-		(*new) = ft_lstnew_cmd(iter->res);
-		(*i) = ft_strlen(iter->res);
-		free_iter_res_or_word(iter);
-	}
+		ft_next_stage(new, i, iter);
 	while (ft_is_space((*str)[*i]) && (*str)[*i] != '\0')
 		(*i)++;
 }

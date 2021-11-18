@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mainparcer3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:39:16 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/18 12:39:51 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_min_exit(void)
@@ -11,7 +23,7 @@ void	ft_min_exit(void)
 
 int	print_prepars_invalid(char *str)
 {
-	char *freez;
+	char	*freez;
 
 	if (ft_check_only_pipe(str))
 	{

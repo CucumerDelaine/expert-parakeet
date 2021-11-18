@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mainparcer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:39:11 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/18 12:39:12 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	preparser(char *str, int *i)
@@ -97,7 +109,7 @@ int	main(int argc, char **argv, char **env)
 /// кейсы 
 // 
 //
-//
+//  "$dawawd""dawawd""dawawd"
 
 // условие из ковычек if (only_service(tmp2[0])
 // && tmp[ft_strlen(tmp) - 1] == ' ' && 

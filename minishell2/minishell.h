@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 12:42:11 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/11/18 12:43:53 by cdelaine         ###   ########.fr       */
+/*   Created: 2021/11/18 12:39:38 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/18 13:13:10 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_iter {
 	char	*argum;
 	char	*flags;
 	char	*res;
+	int		len;
 }				t_iter;
 
 typedef struct s_cmd {
@@ -120,6 +121,7 @@ void	ft_copy_freed(t_env **lst);
 int		ft_strcmp(const char *s1, const char *s2);
 int		preparser(char *str, int *i);
 int		ft_check_only_pipe(char *str);
+void	ft_next_stage(t_cmd **new, int *i, t_iter *iter);
 
 // pipe.c
 void	pipe_logic(t_cmd *cmd, t_env *env, char **oenv, int argc);

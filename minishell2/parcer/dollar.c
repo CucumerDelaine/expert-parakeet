@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollar.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:39:06 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/18 13:08:24 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_freez(void *freez)
@@ -23,6 +35,7 @@ char	*ft_find_doll(char *str, int *i, int j, char *tmp2)
 	ft_freez(freez);
 	freez = str;
 	str = ft_strjoin(str, tmp3);
+	*i = ft_strlen(str) - 2;
 	ft_freez(freez);
 	ft_freez(tmp);
 	ft_freez(tmp3);
