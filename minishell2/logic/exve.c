@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exve.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 16:02:57 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/11/12 15:07:01 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:38:50 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int	comand_exve(t_cmd *cmd, t_env *env, char **oenv)
 			dup2(cmd->fd_out, STDOUT_FILENO);
 		call_execve_proc(cmd, oenv);
 	}
-	waitpid(pid, &err, WUNTRACED | WCONTINUED);
-	g_status_error = WEXITSTATUS(err);
+	errr1(pid, 1);
 	norma2(cmd);
 	return (g_status_error);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:42:11 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/11/18 12:43:53 by cdelaine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -83,7 +95,7 @@ int		check_key_value(t_env **env);
 int		free_normi(t_pipex *a);
 int		check_addres(t_env *env, char *cmd);
 int		check_path(t_cmd *cmd, t_env *env);
-void	plus_SHLVL(char **oenv);
+void	plus_shlvl(char **oenv);
 void	check_minishel(char *name, char **oenv, t_cmd *cmd);
 int		ft_free_cmd(t_cmd **new);
 void	init_count(int *i, int *j);

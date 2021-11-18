@@ -1,4 +1,0 @@
-pwd > 4 | << 1 cat
-echo >1 123 | pwd < 1 | cat -e 1
-ls > 3 | pwd >> 3
-только | >

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exve4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelaine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 11:54:19 by cdelaine          #+#    #+#             */
-/*   Updated: 2021/10/21 11:54:23 by cdelaine         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:45:52 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	plus_SHLVL(char **oenv)
+void	plus_shlvl(char **oenv)
 {
 	int	i;
 	int	j;
@@ -52,5 +52,5 @@ void	check_minishel(char *name, char **oenv, t_cmd *cmd)
 		i++;
 	}
 	if (!ft_strncmp(name + last + 1, "minishell", 9))
-		plus_SHLVL(oenv);
+		plus_shlvl(oenv);
 }

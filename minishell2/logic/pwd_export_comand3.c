@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd_export_comand3.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:43:27 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/11/18 12:45:27 by cdelaine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 t_env	*ft_copy_env(t_env *env, t_env **copy)
@@ -21,7 +33,7 @@ t_env	*ft_copy_env(t_env *env, t_env **copy)
 		ft_lstadd_back_env(copy, new);
 		tmp = tmp->next;
 	}
-	return *(copy);
+	return (*copy);
 }
 
 int	check_var(char *var)

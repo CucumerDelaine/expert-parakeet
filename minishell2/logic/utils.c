@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:43:45 by cdelaine          #+#    #+#             */
+/*   Updated: 2021/11/18 12:47:33 by cdelaine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_error(char *str)
@@ -43,9 +55,9 @@ int	ft_strncmp_nr(const char *s1, const char *s2, int n)
 	return (0);
 }
 
-int ft_check_only_pipe(char *str)
+int	ft_check_only_pipe(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_is_space(str[i]))
