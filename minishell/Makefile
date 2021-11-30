@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = parcer/mainparcer.c utils.c utils_env.c utils_command.c mainlogic.c exve.c exve2.c exec3.c pipe.c env.c unset.c exit.c pipe2.c pipe3.c exve4.c back_d_red2.c utils2.c cd_command.c pwd_export_command.c parcer/quotes_two.c parcer/dollar.c parcer/parcer.c parcer/quotes_one.c parcer/redir.c
+SRC = parcer/mainparcer.c parcer/mainparcer2.c parcer/mainparcer3.c logic/utils.c logic/utils_env.c logic/utils_command.c logic/mainlogic.c logic/exve.c logic/exve2.c logic/exec3.c logic/pipe.c logic/env.c logic/unset.c logic/exit.c logic/pipe2.c logic/pipe3.c logic/exve4.c logic/back_d_red2.c logic/utils2.c logic/cd_command.c logic/pwd_export_command.c parcer/quotes_two.c parcer/dollar.c parcer/parcer.c parcer/parcer2.c parcer/quotes_one.c parcer/redir.c logic/utils3.c logic/pwd_export_comand2.c logic/pwd_export_comand3.c parcer/parcer_utils.c
 
 SRCL = ./libft
 
@@ -10,7 +10,7 @@ LIB		= $(SRCL)/libft.a
 
 HEAD = minishell.h
 
-# CFLAG	= -Wall -Wextra -Werror -g
+CFLAG	= -Wall -Wextra -Werror -g
 
 RM		= rm -f
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_one.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 12:39:25 by erichell          #+#    #+#             */
+/*   Updated: 2021/11/18 12:39:26 by erichell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*ft_freez_three(char *tmp, char *tmp2, char *tmp3, char *str)
@@ -27,7 +39,6 @@ char	*ft_quotes_one(char *str, int *i)
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
-	char	*freez;
 
 	j = *i;
 	(*i)++;
@@ -40,7 +51,7 @@ char	*ft_quotes_one(char *str, int *i)
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp3 = strdup(str + *i + 1);
-	if (only_service(tmp2[0]) && tmp[ft_strlen(tmp) - 1] == ' ' && (tmp3[0] == ' ' || tmp3[0] == '\0' || ft_strlen(tmp3) == 0))
+	if (strchr(tmp2, '|') || strchr(tmp2, '>') || strchr(tmp2, '<'))
 		return (ft_freez_three(tmp, tmp2, tmp3, str));
 	ft_freez(str);
 	return (ft_quotes_one_cont(tmp, tmp2, tmp3, i));
@@ -52,7 +63,7 @@ char	*ft_quotes_one_two_cont(char *tmp, char *tmp2, char *tmp3, int *i)
 	char	*str;
 
 	str = ft_strjoin(tmp, tmp2);
-	*i -= 1;
+	*i -= 2;
 	freez = str;
 	str = ft_strjoin(str, tmp3);
 	ft_freez(freez);
@@ -65,7 +76,6 @@ char	*ft_quotes_one_two(char *str, int *i)
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
-	char	*freez;
 
 	j = *i;
 	while (str[++(*i)])
@@ -73,8 +83,8 @@ char	*ft_quotes_one_two(char *str, int *i)
 		if (str[(*i)] == '\'')
 			break ;
 	}
-	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str, j + 1, *i - j - 1);
+	tmp = ft_substr(str, 0, j);
 	tmp3 = strdup(str + *i + 1);
 	ft_freez(str);
 	return (ft_quotes_one_two_cont(tmp, tmp2, tmp3, i));
