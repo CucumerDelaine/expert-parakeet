@@ -6,7 +6,7 @@
 /*   By: cdelaine <cdelaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:30:04 by                   #+#    #+#             */
-/*   Updated: 2022/03/22 15:07:55 by cdelaine         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:21:42 by cdelaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	free_error(t_config *config, t_data *data)
 
 void	ft_copy(t_data *data, t_config *config)
 {
+	free(data->p_draw->path_n);
+	free(data->p_draw->path_s);
+	free(data->p_draw->path_w);
+	free(data->p_draw->path_e);
+	free_all2(data->p_info->arr);
 	data->p_draw->path_n = config->north;
 	data->p_draw->path_s = config->south;
 	data->p_draw->path_w = config->west;
@@ -62,14 +67,12 @@ int	main(int argc, char **argv)
 		if (init_struct(&data))
 			return (1);
 		if (ft_parser(argv, &data))
-			free_error(&config, &data);
+			ft_error(&data);
 		if (parcer(argv, &config))
 			free_error(&config, &data);
 		ft_copy(&data, &config);
 		ft_draw_general(&data);
 	}
-	free_config(&config);
-	free_all2(config.map2);
 	free_all(&data);
 	return (0);
 }
